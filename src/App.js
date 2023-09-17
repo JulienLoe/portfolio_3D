@@ -7,6 +7,9 @@ import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
 import {Billiards_room} from "./Billiards_room"
 import {Boite_tresor} from "./Boite_tresor"
+import { SmallDrawingRoom } from './SmallDrawingRoom'
+import { Armoury } from './Armoury'
+import song from './assets/Cinematic_Sad_Melancholic_Sentimental_Grand_Piano_Production_Theme_Soundtrack_014_-_PremiumMusic.mp3'
 
 const store = [
   { name: 'Salle de musique', color: 'lightpink', position: [10, 0, -15], url: './2294472375_24a3b8ef46_o.jpg', link: 1 },
@@ -20,18 +23,19 @@ const store = [
 // ]
 
 function Dome({ name, position, texture, onClick }) {
+  const [clicked, setClicked] = useState(false)
   return (
     <group>
       <mesh>
         <sphereGeometry args={[500, 60, 40]} />
         <meshBasicMaterial map={texture} side={THREE.BackSide} />
       </mesh>
-      <mesh position={[2, 0, 0.2]}>
-        <sphereGeometry args={[0.10, 22, 22]} />
+      <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
+        <sphereGeometry args={[0.2, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#">Salle de musique</a>
+            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -40,18 +44,19 @@ function Dome({ name, position, texture, onClick }) {
 }
 
 function Dome2({ name, position, texture, onClick }) {
+  const [clicked, setClicked] = useState(false)
   return (
     <group>
       <mesh>
         <sphereGeometry args={[500, 60, 40]} />
         <meshBasicMaterial map={texture} side={THREE.BackSide} />
       </mesh>
-      <mesh position={[21, 0, 21]}>
-        <sphereGeometry args={[0.10, 22, 22]} />
+      <mesh scale={clicked ? 1.1 : 1} position={[21, 0, 21]}>
+        <sphereGeometry args={[0.3, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#">Salle à manger</a>
+            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -81,18 +86,19 @@ function Dome2({ name, position, texture, onClick }) {
 // }
 
 function Dome_billiard_music({ name, position, texture, onClick }) {
+  const [clicked, setClicked] = useState(false)
   return (
     <group>
       <mesh>
         <sphereGeometry args={[500, 60, 40]} />
         <meshBasicMaterial map={texture} side={THREE.BackSide} />
       </mesh>
-      <mesh position={[38, 0, 44]}>
-        <sphereGeometry args={[0.10, 22, 22]} />
+      <mesh scale={clicked ? 1.1 : 1} position={[34.6, 0, 48.7]}>
+        <sphereGeometry args={[0.4, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#">Salle à manger</a>
+            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -105,6 +111,9 @@ export default function App() {
   const [click, setClick] = useState(false)
   const [clickMusicBilliard, setClickMusicBilliard] = useState(false)
   const [clickBilliardMusic, setClickBilliardMusic] = useState(false) 
+  const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
+  const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
+  const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -113,6 +122,21 @@ export default function App() {
     100
   );
   threeCamera.position.set(0, 0, -0.1);
+
+  const listener = new THREE.AudioListener();
+threeCamera.add( listener );
+
+  // create a global audio source
+const sound = new THREE.Audio( listener );
+
+// load a sound and set it as the Audio object's buffer
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load( song, function( buffer ) {
+	sound.setBuffer( buffer );
+	sound.setLoop( true );
+	sound.setVolume( 0.5 );
+	sound.play();
+});
 
   function Dome_music_billiard({ name, position, texture, onClick }) {
     const [clicked, setClicked] = useState(false)
@@ -135,6 +159,90 @@ export default function App() {
     )
   }
 
+  function Dome_start_drawingRoom({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[-4, 0, 0.5]}>
+          <sphereGeometry  args={[0.2, 22, 22]} />
+          <meshBasicMaterial   color={clicked ? "white" : "white"} />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+
+  function Dome_drawingRoom_start({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[59, 0, 64]}>
+          <sphereGeometry  args={[0.33, 22, 22]} />
+          <meshBasicMaterial   color={clicked ? "white" : "white"} />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+
+  function Dome_drawingRoom_armoury({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[60.1, 0, 56.4]}>
+          <sphereGeometry  args={[0.4, 22, 22]} />
+          <meshBasicMaterial   color={clicked ? "white" : "white"} />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Armurie</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+
+  function Dome_armoury_drawingRoom({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[80.9, 0, 80.8]}>
+          <sphereGeometry  args={[0.2, 22, 22]} />
+          <meshBasicMaterial   color={clicked ? "white" : "white"} />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+
   function Portals() {
     return <Dome onClick={function start() {setPosition([20, 0, 20]); setClick(!click)}}/>
   }
@@ -147,7 +255,7 @@ export default function App() {
   }
 
   function Portals_music_billard() {
-    return <Dome_music_billiard  onClick={function start() {setPosition([40, 0, 40]); 
+    return <Dome_music_billiard  onClick={function start() {setPosition([36, 0, 46]); 
     
       setClickMusicBilliard(true); setClickBilliardMusic(false);
       }}/>
@@ -161,18 +269,44 @@ export default function App() {
     }/>
   }
 
+  function Portals_start_drawingRoom() {
+    return <Dome_start_drawingRoom onClick={function start() {setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}}/>
+  }
+
+  function Portals_drawingRoom_start() {
+    return <Dome_drawingRoom_start onClick={function start() {setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
+    console.log(click, clickArmouryDrawingRoom, clickBilliardMusic,clickDrawingRoomArmoury, clickMusicBilliard, clickStartDrawingRoom)
+  }}/>
+  }
+
+  function Portals_drawingRoom_armoury() {
+    return <Dome_drawingRoom_armoury onClick={function start() {setPosition([80, 0, 80]); setClickDrawingRoomArmoury(true)}}/>
+  }
+
+  function Portals_armoury_drawingRoom() {
+    return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false)}}/>
+  }
+
   useEffect(()=>{
     if(click == true){
       threeCamera.position.set(20, 0.1, 20.6);
     }
     if(clickMusicBilliard == true){
-      threeCamera.position.set(40, 0.1, 40.6);
+      threeCamera.position.set(36, 0.1, 46.6);
     }
     if(clickBilliardMusic == true){
-      threeCamera.position.set(22, 0.1, 16.6);
+      threeCamera.position.set(22, 0.1, 15.4);
     }
-    
-  }, [click, clickMusicBilliard, clickBilliardMusic])
+    if(clickStartDrawingRoom == true){
+      threeCamera.position.set(59, 0.1, 63.6);
+    }
+    if(clickDrawingRoomArmoury == true){
+      threeCamera.position.set(80, 0.1, 80.6);
+    }
+    if(clickArmouryDrawingRoom == true){
+      threeCamera.position.set(60, 0.1, 57.4);
+    }
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom])
   return (
     <Canvas frameloop="demand" rotation={[0,0,0]} camera={threeCamera}>
       <ambientLight intensity={4} />
@@ -182,11 +316,17 @@ export default function App() {
         <Maison scale={1}  position={[0, 0, -5]}></Maison>
         <Maison2 scale={1} position={[20, -2, 20]}></Maison2>
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
+        <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
+        <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
         <Boite_tresor scale={0.1}  position={[0, -1, 2]}></Boite_tresor>
-        {!click ? <Portals></Portals> : null}
+        {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
         {clickMusicBilliard ? <Portals_billard_music></Portals_billard_music> : null}
+        {click == false && clickMusicBilliard == false && clickStartDrawingRoom == false  ? <Portals_start_drawingRoom></Portals_start_drawingRoom> : null}
+        {clickStartDrawingRoom && clickDrawingRoomArmoury != true ? <Portals_drawingRoom_start></Portals_drawingRoom_start> : null}
+        {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Portals_drawingRoom_armoury></Portals_drawingRoom_armoury> : null}
+        {clickDrawingRoomArmoury ? <Portals_armoury_drawingRoom></Portals_armoury_drawingRoom> : null}
       </Suspense>
     </Canvas>
   )
