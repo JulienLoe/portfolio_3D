@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { Suspense, useCallback, useEffect, useState } from 'react'
-import { Canvas, useLoader } from '@react-three/fiber'
-import { Html, Preload, OrbitControls } from '@react-three/drei'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture } from '@react-three/drei'
 import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
@@ -10,6 +10,12 @@ import {Boite_tresor} from "./Boite_tresor"
 import { SmallDrawingRoom } from './SmallDrawingRoom'
 import { Armoury } from './Armoury'
 import song from './assets/Cinematic_Sad_Melancholic_Sentimental_Grand_Piano_Production_Theme_Soundtrack_014_-_PremiumMusic.mp3'
+import animation from './assets/wooden_box.glb'
+import { BoiteAnimation } from './BoiteAnimation'
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import grass from "./assets/Wood_diffuse.jpeg"
+import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier"
+import gltf from './assets/scene.gltf'
 
 const store = [
   { name: 'Salle de musique', color: 'lightpink', position: [10, 0, -15], url: './2294472375_24a3b8ef46_o.jpg', link: 1 },
@@ -137,6 +143,24 @@ audioLoader.load( song, function( buffer ) {
 	sound.setVolume( 0.5 );
 	sound.play();
 });
+
+
+function TheModel() {
+  
+  const { nodes, materials } = useGLTF(animation)
+  let mixer = null;
+  const { scene, animations } = useLoader(GLTFLoader, animation);
+  // console.log(scene);
+  mixer = new THREE.AnimationMixer(scene);
+ 
+ 
+  void mixer.clipAction(animations[0]).play();
+  useFrame((state, delta) => {
+    mixer.update(delta);
+    // console.log(ca);
+  });
+  return <mesh material={materials.Wood} material-envMapIntensity={0.8}><meshStandardMaterial ></meshStandardMaterial><primitive  scale={0.1} object={scene} position={[0, 0, 0]} /></mesh> ;
+}
 
   function Dome_music_billiard({ name, position, texture, onClick }) {
     const [clicked, setClicked] = useState(false)
@@ -309,6 +333,7 @@ audioLoader.load( song, function( buffer ) {
   }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom])
   return (
     <Canvas frameloop="demand" rotation={[0,0,0]} camera={threeCamera}>
+      <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={4} />
       <OrbitControls target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
@@ -318,7 +343,8 @@ audioLoader.load( song, function( buffer ) {
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <Boite_tresor scale={0.1}  position={[0, -1, 2]}></Boite_tresor>
+        {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
+        <TheModel ></TheModel>
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
@@ -328,6 +354,7 @@ audioLoader.load( song, function( buffer ) {
         {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Portals_drawingRoom_armoury></Portals_drawingRoom_armoury> : null}
         {clickDrawingRoomArmoury ? <Portals_armoury_drawingRoom></Portals_armoury_drawingRoom> : null}
       </Suspense>
+      </Physics>
     </Canvas>
   )
 }
