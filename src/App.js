@@ -10,7 +10,7 @@ import {Boite_tresor} from "./Boite_tresor"
 import { SmallDrawingRoom } from './SmallDrawingRoom'
 import { Armoury } from './Armoury'
 import song from './assets/Cinematic_Sad_Melancholic_Sentimental_Grand_Piano_Production_Theme_Soundtrack_014_-_PremiumMusic.mp3'
-import animation from './assets/wooden_box.glb'
+import animationGLB from './assets/wooden_box.glb'
 import { BoiteAnimation } from './BoiteAnimation'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import grass from "./assets/Wood_diffuse.jpeg"
@@ -147,9 +147,9 @@ audioLoader.load( song, function( buffer ) {
 
 function TheModel() {
   
-  const { nodes, materials } = useGLTF(animation)
+  const { nodes, materials } = useGLTF(animationGLB)
   let mixer = null;
-  const { scene, animations } = useLoader(GLTFLoader, animation);
+  const { scene, animations } = useLoader(GLTFLoader, animationGLB);
   // console.log(scene);
   mixer = new THREE.AnimationMixer(scene);
  
@@ -160,6 +160,25 @@ function TheModel() {
     // console.log(ca);
   });
   return <mesh material={materials.Wood} material-envMapIntensity={0.8}><meshStandardMaterial ></meshStandardMaterial><primitive  scale={0.1} object={scene} position={[0, 0, 0]} /></mesh> ;
+}
+
+function Model(props) {
+  let mixer = null;
+  
+  const { nodes, materials, ref, animations, scene } = useGLTF(animationGLB)
+  mixer = new THREE.AnimationMixer(scene);
+  
+  void mixer.clipAction(animations[0]).play()
+  useFrame((state, delta) => {
+    mixer.update(delta);
+    // console.log(ca);
+  });
+  return (
+    <group {...props} ref={ref}>
+      <primitive object={scene} />
+      {/* <skinnedMesh castShadow receiveShadow material={materials.Wood_diffuse} /> */}
+    </group>
+  )
 }
 
   function Dome_music_billiard({ name, position, texture, onClick }) {
@@ -344,7 +363,8 @@ function TheModel() {
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
-        <TheModel ></TheModel>
+        {/* <TheModel ></TheModel> */}
+        <Model position={[0,0, 0]} scale={0.1} />
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
