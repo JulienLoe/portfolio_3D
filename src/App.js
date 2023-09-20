@@ -404,7 +404,7 @@ function Model(props) {
     <Canvas frameloop="demand" rotation={[0,0,0]} camera={threeCamera}>
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={4} />
-      <OrbitControls target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5}/>
+      <OrbitControls makeDefault autoRotate target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
         
         <Preload all />
@@ -415,7 +415,7 @@ function Model(props) {
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
         <DragoonOfficerSabre rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
         {/* <MyRotatingBox position={([0, 0, 0.1])} scale={0.02}></MyRotatingBox> */}
-        <Key position={([0, 0, 0.1])} scale={0.02}></Key>
+        <Key position={([0, 0, 0])} scale={0.009}></Key>
         {/* <Sabre></Sabre> */}
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
         {/* <TheModel ></TheModel> */}
