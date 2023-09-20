@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture } from '@react-three/drei'
 import { Popconfirm } from 'antd'
@@ -16,6 +16,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import grass from "./assets/Wood_diffuse.jpeg"
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier"
 import gltf from './assets/scene.gltf'
+import { DragoonOfficerSabre } from './DragoonOfficerSabre'
+import { Key } from './Key'
+import key from "./assets/key.glb"
 
 const store = [
   { name: 'Salle de musique', color: 'lightpink', position: [10, 0, -15], url: './2294472375_24a3b8ef46_o.jpg', link: 1 },
@@ -120,6 +123,7 @@ export default function App() {
   const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
   const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
   const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
+  const [clickSabre, setClickSabre] = useState(true)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -286,6 +290,27 @@ function Model(props) {
     )
   }
 
+  function Dome_Sabre({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh >
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh  scale={clicked ? 1.1 : 1} position={[0, 0, 1]}>
+          <sphereGeometry  args={[0, 22, 22]} />
+          <meshBasicMaterial  color={clicked ? "white" : "white"} />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" >Sabre</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+
   function Portals() {
     return <Dome onClick={function start() {setPosition([20, 0, 20]); setClick(!click)}}/>
   }
@@ -323,7 +348,7 @@ function Model(props) {
   }
 
   function Portals_drawingRoom_armoury() {
-    return <Dome_drawingRoom_armoury onClick={function start() {setPosition([80, 0, 80]); setClickDrawingRoomArmoury(true)}}/>
+    return <Dome_drawingRoom_armoury onClick={function start() {setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}}/>
   }
 
   function Portals_armoury_drawingRoom() {
@@ -344,27 +369,57 @@ function Model(props) {
       threeCamera.position.set(59, 0.1, 63.6);
     }
     if(clickDrawingRoomArmoury == true){
-      threeCamera.position.set(80, 0.1, 80.6);
+      threeCamera.position.set(79.6, 0.1, 80);
     }
     if(clickArmouryDrawingRoom == true){
       threeCamera.position.set(60, 0.1, 57.4);
     }
   }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom])
+  
+    
+  
+    
+
+    // function MyRotatingBox(props) {
+    //   let mixer = null;
+      
+    //   const { nodes, materials, ref, animations, scene } = useGLTF(key)
+    //   mixer = new THREE.AnimationMixer(scene);
+    //   const myMesh = React.useRef();
+      
+    //   useFrame(({ clock }) => {
+    //     const a = clock.getElapsedTime();
+    //     myMesh.current.rotation.x = a;
+    //   });
+    //   return (
+
+    //     <Key {...props} ref={myMesh}></Key>
+    //     // <group ref={myMesh} {...props} >
+    //     //   <primitive  object={scene} />
+    //     //   {/* <skinnedMesh castShadow receiveShadow material={materials.Wood_diffuse} /> */}
+    //     // </group>
+    //   )
+    // }
   return (
     <Canvas frameloop="demand" rotation={[0,0,0]} camera={threeCamera}>
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={4} />
       <OrbitControls target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
+        
         <Preload all />
         <Maison scale={1}  position={[0, 0, -5]}></Maison>
         <Maison2 scale={1} position={[20, -2, 20]}></Maison2>
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
+        <DragoonOfficerSabre rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
+        {/* <MyRotatingBox position={([0, 0, 0.1])} scale={0.02}></MyRotatingBox> */}
+        <Key position={([0, 0, 0.1])} scale={0.02}></Key>
+        {/* <Sabre></Sabre> */}
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
         {/* <TheModel ></TheModel> */}
-        <Model position={[0,0, 0]} scale={0.1} />
+        {/* <Model position={[0,0, 0]} scale={0.1} /> */}
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
