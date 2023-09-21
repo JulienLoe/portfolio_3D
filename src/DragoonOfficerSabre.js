@@ -5,6 +5,7 @@ import { Key } from "./Key"
 
 
 export function DragoonOfficerSabre(props) {
+  const [clickSabre, setClickSabre] = useState(false)
   function Model() {
     const { scene } = useGLTF(glb)
     
@@ -12,7 +13,7 @@ export function DragoonOfficerSabre(props) {
   }
 
   return (
-    <group {...props} dispose={null}>
+    <group onClick={()=> {setClickSabre(true); console.log(clickSabre)}} {...props} dispose={null}>
     <Model></Model>
     </group>
   )

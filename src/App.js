@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture } from '@react-three/drei'
+import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture, Clone } from '@react-three/drei'
 import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
@@ -16,9 +16,11 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import grass from "./assets/Wood_diffuse.jpeg"
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier"
 import gltf from './assets/scene.gltf'
-import { DragoonOfficerSabre } from './DragoonOfficerSabre'
+
 import { Key } from './Key'
 import key from "./assets/key.glb"
+import glb from "./assets/dragoon_officers_sabre.glb"
+import {DragoonOfficerSabre} from "./DragoonOfficerSabre"
 
 const store = [
   { name: 'Salle de musique', color: 'lightpink', position: [10, 0, -15], url: './2294472375_24a3b8ef46_o.jpg', link: 1 },
@@ -123,7 +125,7 @@ export default function App() {
   const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
   const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
   const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
-  const [clickSabre, setClickSabre] = useState(true)
+  const [clickSabre, setClickSabre] = useState(79.6, -1, 80)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -369,12 +371,12 @@ function Model(props) {
       threeCamera.position.set(59, 0.1, 63.6);
     }
     if(clickDrawingRoomArmoury == true){
-      threeCamera.position.set(79.6, 0.1, 80);
+      threeCamera.position.set(79.6, 0.1, 80.2);
     }
     if(clickArmouryDrawingRoom == true){
       threeCamera.position.set(60, 0.1, 57.4);
     }
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom])
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre])
   
     
   
@@ -400,11 +402,28 @@ function Model(props) {
     //     // </group>
     //   )
     // }
+
+    // function DragoonOfficerSabre(props) {
+    //   function Model() {
+    //     const { scene } = useGLTF(glb)
+    //     return <Clone object={scene} />
+    //   }
+    
+    //   return (
+    //     <group onClick={()=> setClickSabre(!clickSabre)} {...props} dispose={null}>
+    //     <Model></Model>
+    //     </group>
+    //   )
+      
+    // }
+    
+    
+  
   return (
-    <Canvas frameloop="demand" rotation={[0,0,0]} camera={threeCamera}>
+    <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={4} />
-      <OrbitControls makeDefault autoRotate target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
+      <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
         
         <Preload all />
@@ -413,9 +432,12 @@ function Model(props) {
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <DragoonOfficerSabre rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
+        <DragoonOfficerSabre onClick={()=> {setClickSabre([79.6, 0, 80]); console.log(clickSabre); setTimeout(() => {
+  setClickSabre(false);
+}, 5000);
+}} rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
         {/* <MyRotatingBox position={([0, 0, 0.1])} scale={0.02}></MyRotatingBox> */}
-        <Key position={([0, 0, 0])} scale={0.009}></Key>
+        <Key position={(clickSabre)} scale={0.02}></Key>
         {/* <Sabre></Sabre> */}
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
         {/* <TheModel ></TheModel> */}
