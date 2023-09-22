@@ -5,7 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles.css'
 import { createRoot } from "react-dom/client"
-
+import { Stats } from '@react-three/drei'
+import { Leva } from 'leva';
 
 
 
@@ -14,6 +15,8 @@ import { createRoot } from "react-dom/client"
   return(
     <>
     <App />
+    <Stats />
+    <Leva collapsed />
     <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
         <div className="stack">

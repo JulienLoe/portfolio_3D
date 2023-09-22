@@ -13,7 +13,7 @@ export function DragoonOfficerSabre(props) {
   }
 
   return (
-    <group onClick={()=> {setClickSabre(true); console.log(clickSabre)}} {...props} dispose={null}>
+    <group {...props} dispose={null}>
     <Model></Model>
     </group>
   )

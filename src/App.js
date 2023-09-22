@@ -21,6 +21,8 @@ import { Key } from './Key'
 import key from "./assets/key.glb"
 import glb from "./assets/dragoon_officers_sabre.glb"
 import {DragoonOfficerSabre} from "./DragoonOfficerSabre"
+import logo from './assets/key.png'
+import { GoldenTrophy } from './GoldenTrophy'
 
 const store = [
   { name: 'Salle de musique', color: 'lightpink', position: [10, 0, -15], url: './2294472375_24a3b8ef46_o.jpg', link: 1 },
@@ -125,7 +127,10 @@ export default function App() {
   const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
   const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
   const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
-  const [clickSabre, setClickSabre] = useState(79.6, -1, 80)
+  const [clickSabre, setClickSabre] = useState([79.6, -1, 80])
+  const [key, setKey] = useState(false);
+  const [keyLost, setKeyLost] = useState(true);
+  const [tresor, setTresor] = useState(false)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -345,7 +350,7 @@ function Model(props) {
 
   function Portals_drawingRoom_start() {
     return <Dome_drawingRoom_start onClick={function start() {setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
-    console.log(click, clickArmouryDrawingRoom, clickBilliardMusic,clickDrawingRoomArmoury, clickMusicBilliard, clickStartDrawingRoom)
+    console.log(key) ; setKeyLost(false)
   }}/>
   }
 
@@ -354,7 +359,7 @@ function Model(props) {
   }
 
   function Portals_armoury_drawingRoom() {
-    return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false)}}/>
+    return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false) }}/>
   }
 
   useEffect(()=>{
@@ -376,7 +381,7 @@ function Model(props) {
     if(clickArmouryDrawingRoom == true){
       threeCamera.position.set(60, 0.1, 57.4);
     }
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre])
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre, key])
   
     
   
@@ -420,9 +425,11 @@ function Model(props) {
     
   
   return (
+    <>
+    {key ? <div id='key'><img width="100" height="100" src={logo}></img></div> : null}
     <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
       <Physics gravity={[0, -30, 0]}>
-      <ambientLight intensity={4} />
+      <ambientLight intensity={10} />
       <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
         
@@ -432,16 +439,17 @@ function Model(props) {
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <DragoonOfficerSabre onClick={()=> {setClickSabre([79.6, 0, 80]); console.log(clickSabre); setTimeout(() => {
+        <DragoonOfficerSabre onClick={()=> {setClickSabre([79.6, 0, 80]); console.log(key); setKey(true); setTimeout(() => {
   setClickSabre(false);
 }, 5000);
 }} rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
+        { tresor ? <GoldenTrophy position={[36, 0, 46]} scale={0.0007}></GoldenTrophy> : null }
         {/* <MyRotatingBox position={([0, 0, 0.1])} scale={0.02}></MyRotatingBox> */}
-        <Key position={(clickSabre)} scale={0.02}></Key>
+        {keyLost ? <Key position={(clickSabre)} scale={0.02}></Key> : null}
         {/* <Sabre></Sabre> */}
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
         {/* <TheModel ></TheModel> */}
-        {/* <Model position={[0,0, 0]} scale={0.1} /> */}
+        <Model position={[35, 0, 43]} rotation={[0, Math.PI / 2.5, -6.3]} scale={1} />
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
@@ -453,5 +461,6 @@ function Model(props) {
       </Suspense>
       </Physics>
     </Canvas>
+    </>
   )
 }

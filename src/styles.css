@@ -125,5 +125,12 @@ button {
   justify-content: center;
   align-items: center;
   transition: all 1s;
+  z-index: 9998;
+}
+
+#key{
+  position: absolute;
   z-index: 9999;
+  top: 50px;
+  left: 50px;
 }
