@@ -7,6 +7,7 @@ import './styles.css'
 import { createRoot } from "react-dom/client"
 import { Stats } from '@react-three/drei'
 import { Leva } from 'leva';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 
