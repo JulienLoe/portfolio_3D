@@ -1,5 +1,5 @@
 import { Clone, useGLTF } from "@react-three/drei"
-import glb from "./assets/boite_tresor.glb"
+import glb from "./assets/treasure_chest.glb"
 
 
 export function Boite_tresor(props) {
@@ -17,4 +17,4 @@ export function Boite_tresor(props) {
   )
 }
 
-useGLTF.preload("/boite_tresor.glb")
+useGLTF.preload("/treasure_chest.glb")

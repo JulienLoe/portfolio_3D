@@ -10,10 +10,10 @@ import {Boite_tresor} from "./Boite_tresor"
 import { SmallDrawingRoom } from './SmallDrawingRoom'
 import { Armoury } from './Armoury'
 import song from './assets/Cinematic_Sad_Melancholic_Sentimental_Grand_Piano_Production_Theme_Soundtrack_014_-_PremiumMusic.mp3'
-import animationGLB from './assets/wooden_box.glb'
+import animationGLB from './assets/treasure_chest.glb'
 import { BoiteAnimation } from './BoiteAnimation'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import grass from "./assets/Wood_diffuse.jpeg"
+import green from "./assets/vert.jpg"
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier"
 import gltf from './assets/scene.gltf'
 
@@ -144,7 +144,7 @@ export default function App() {
     0.1,
     100
   );
-  threeCamera.position.set(0, 0, -0.1);
+  threeCamera.position.set(40, 0, -0.1);
 
   const listener = new THREE.AudioListener();
 threeCamera.add( listener );
@@ -180,24 +180,33 @@ function TheModel() {
 }
 
 function Model(props, onClick) {
+  const texture = useTexture(green)
   let mixer = null;
   const [openBox, setOpenBox] = useState(false);
   
-  const { nodes, materials, ref, animations, scene } = useGLTF(animationGLB)
+  const { nodes, materials, animations, scene , obj} = useGLTF(animationGLB)
+  console.log(materials)
+  const { ref, actions, names } = useAnimations(animations)
+  console.log(materials)
   console.log(nodes)
-  mixer = new THREE.AnimationMixer(scene);
+  console.log(actions)
+  // mixer = new THREE.AnimationMixer(scene);
   
-  void mixer.clipAction(animations[0]).play()
-  useFrame((state, delta) => {
-    mixer.update(delta);
+  // void mixer.clipAction(animations[0]).play()
+  useEffect((state, delta) => {
+    actions[names[0]].play()
+    
     // console.log(ca);
-  });
+  },[]);
   return (
     <>
-    <group {...props} ref={ref}>
-            <primitive onClick={()=>{setOpenBox(true)}} object={scene}/>
+    <group {...props} ref={ref} scale={0.01} rotation={[1.55, Math.PI / 1, -1.8]} >
+            <primitive onClick={()=>{setOpenBox(true)}} object={nodes.top_01}/>
+            <primitive onClick={()=>{setOpenBox(true)}} object={nodes.root_00}/>
+            <primitive onClick={()=>{setOpenBox(true)}} object={nodes._rootJoint}/>
       
-      {/* <skinnedMesh castShadow receiveShadow material={materials.Wood_diffuse} /> */}
+      <skinnedMesh  receiveShadow castShadow skinning  geometry={nodes.Object_10.geometry} skeleton={nodes.Object_10.skeleton} material={materials.M_Chest_Reinforcment}/>
+      <skinnedMesh  receiveShadow castShadow skinning  geometry={nodes.Object_11.geometry} skeleton={nodes.Object_11.skeleton} material={materials.M_Chest_Reinforcment}/>
     </group>
     {/* {openBox ?
     <Html style={{position :'absolute', top : '0px', left : '0px', height: '100vh', width: '100vw', backgroundColor : 'black' }}> 
@@ -453,7 +462,7 @@ function Model(props, onClick) {
     </div> : null }
     <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
       <Physics gravity={[0, -30, 0]}>
-      <ambientLight intensity={10} />
+      <ambientLight intensity={3} />
       <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
       <Suspense fallback={null}>
         
@@ -474,7 +483,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}><
         {/* <Sabre></Sabre> */}
         {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
         {/* <TheModel ></TheModel> */}
-        <Model position={[34, -0.9, 43]} rotation={[0, Math.PI / 2.5, -6.3]} scale={1.8} onClick={()=>{setOpenBox(true); if(key == true){setTresor([36, 0, 46])}; setTimeout(() => {
+        <Model position={[32, -1.9, 40.5]}  onClick={()=>{setOpenBox(true); if(key == true){setTresor([36, 0, 46])}; setTimeout(() => {
   setOpenBox(false);
 }, 3000);}}/>
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
