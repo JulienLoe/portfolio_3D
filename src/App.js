@@ -132,10 +132,12 @@ export default function App() {
   const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
   const [clickSabre, setClickSabre] = useState([79.6, -1, 80])
   const [singleTime, setSingleTime] = useState(false);
-  const [key, setKey] = useState(false);
+  const [key, setKey] = useState(true);
   const [keyLost, setKeyLost] = useState(true);
   const [tresor, setTresor] = useState([100, 0, 100])
+  const [tresorBoolean, setTresorBoolean] = useState(false);
   const [openBox, setOpenBox] = useState(false);
+  const [timer, setTimer] = useState(false)
   const [cv, setCv] = useState(false);
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
@@ -144,7 +146,7 @@ export default function App() {
     0.1,
     100
   );
-  threeCamera.position.set(40, 0, -0.1);
+  threeCamera.position.set(0, 0, -0.1);
 
   const listener = new THREE.AudioListener();
 threeCamera.add( listener );
@@ -162,58 +164,40 @@ audioLoader.load( song, function( buffer ) {
 });
 
 
-function TheModel() {
-  
-  const { nodes, materials } = useGLTF(animationGLB)
-  let mixer = null;
-  const { scene, animations } = useLoader(GLTFLoader, animationGLB);
-  // console.log(scene);
-  mixer = new THREE.AnimationMixer(scene);
- 
- 
-  void mixer.clipAction(animations[0]).play();
-  useFrame((state, delta) => {
-    mixer.update(delta);
-    // console.log(ca);
-  });
-  return <mesh material={materials.Wood} material-envMapIntensity={0.8}><meshStandardMaterial ></meshStandardMaterial><primitive  scale={0.1} object={scene} position={[0, 0, 0]} /></mesh> ;
-}
 
+useGLTF.preload(animationGLB)
 function Model(props, onClick) {
-  const texture = useTexture(green)
-  let mixer = null;
-  const [openBox, setOpenBox] = useState(false);
+  
+  // let mixer = null;
+  
   
   const { nodes, materials, animations, scene , obj} = useGLTF(animationGLB)
-  console.log(materials)
+  // animations.setLoop(THREE.LoopOnce)
+  
   const { ref, actions, names } = useAnimations(animations)
-  console.log(materials)
-  console.log(nodes)
-  console.log(actions)
+ 
   // mixer = new THREE.AnimationMixer(scene);
   
-  // void mixer.clipAction(animations[0]).play()
-  useEffect((state, delta) => {
-    actions[names[0]].play()
+  
+  useEffect(() => {
+    if(tresorBoolean == true && key == true){
+    let animation = actions[names[0]].play()
+    animation.setLoop(THREE.LoopOnce)
+    setKey(false)
+    }
     
-    // console.log(ca);
-  },[]);
+  },[tresorBoolean, key]);
+  
   return (
     <>
-    <group {...props} ref={ref} scale={0.01} rotation={[1.55, Math.PI / 1, -1.8]} >
-            <primitive onClick={()=>{setOpenBox(true)}} object={nodes.top_01}/>
-            <primitive onClick={()=>{setOpenBox(true)}} object={nodes.root_00}/>
-            <primitive onClick={()=>{setOpenBox(true)}} object={nodes._rootJoint}/>
+    <group {...props}  ref={ref} scale={0.01} rotation={[1.55, Math.PI / 1, -1.8]} >
+            <primitive  object={nodes.top_01}/>
+            <primitive  object={nodes.root_00}/>
+            <primitive  object={nodes._rootJoint}/>
       
       <skinnedMesh  receiveShadow castShadow skinning  geometry={nodes.Object_10.geometry} skeleton={nodes.Object_10.skeleton} material={materials.M_Chest_Reinforcment}/>
-      <skinnedMesh  receiveShadow castShadow skinning  geometry={nodes.Object_11.geometry} skeleton={nodes.Object_11.skeleton} material={materials.M_Chest_Reinforcment}/>
+      <skinnedMesh  receiveShadow castShadow skinning  geometry={nodes.Object_11.geometry} skeleton={nodes.Object_11.skeleton} material={materials.M_Chest_Wood}/>
     </group>
-    {/* {openBox ?
-    <Html style={{position :'absolute', top : '0px', left : '0px', height: '100vh', width: '100vw', backgroundColor : 'black' }}> 
-    <div id='openBox'>
-      <p>Vous n'avez pas la clé !</p>
-    </div>
-    </Html> : null } */}
     </>
   )
 }
@@ -407,7 +391,8 @@ function Model(props, onClick) {
     if(clickArmouryDrawingRoom == true){
       threeCamera.position.set(60, 0.1, 57.4);
     }
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre, key, openBox])
+    
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre, key,openBox, cv])
   
     
   
@@ -454,7 +439,7 @@ function Model(props, onClick) {
     <PDFReader></PDFReader>
     </div> : null }
     {key ? <div id='key'><img width="100" height="100" src={logo}></img></div> : null}
-    {openBox && !key ? 
+    {openBox && !key && !tresorBoolean ? 
     <div id='openBox'>
       <div id='textOpenBox'>
         <p>Vous n'avez pas la clé !</p>
@@ -472,22 +457,21 @@ function Model(props, onClick) {
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){setClickSabre([79.6, 0, 80]); console.log(key); setSingleTime(true); setKey(true); setTimeout(() => {
+        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); setTimeout(() => {
   setClickSabre(false);
 }, 5000);
         }}} 
 rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
-        { tresor ? <GoldenTrophy position={tresor} scale={0.0007}></GoldenTrophy> : null }
-        {/* <MyRotatingBox position={([0, 0, 0.1])} scale={0.02}></MyRotatingBox> */}
+        {/* { tresorBoolean ? setTimeout(() =>{setTimer(true); console.log(timer)}, 1000) : null } */}
+        <GoldenTrophy position={tresor} scale={0.0007} onClick={()=>{setCv(true)}}></GoldenTrophy>
+        
         {keyLost ? <Key position={(clickSabre)} scale={0.02}></Key> : null}
-        {/* <Sabre></Sabre> */}
-        {/* <Boite_tresor scale={0.1}  ></Boite_tresor> */}
-        {/* <TheModel ></TheModel> */}
-        <Model position={[32, -1.9, 40.5]}  onClick={()=>{setOpenBox(true); if(key == true){setTresor([36, 0, 46])}; setTimeout(() => {
-  setOpenBox(false);
-}, 3000);}}/>
+        
+        <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){ console.log(timer); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
+  
+}, 8000);}}/>
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
-        {click && clickMusicBilliard != true ? <Portals2></Portals2> : null}
+        {click && clickMusicBilliard != true  ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
         {clickMusicBilliard ? <Portals_billard_music></Portals_billard_music> : null}
         {click == false && clickMusicBilliard == false && clickStartDrawingRoom == false  ? <Portals_start_drawingRoom></Portals_start_drawingRoom> : null}
