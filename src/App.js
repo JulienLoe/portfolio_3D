@@ -180,13 +180,14 @@ function Model(props, onClick) {
   
   
   useEffect(() => {
-    if(tresorBoolean == true && key == true){
+    if(openBox == true && key == true){
     let animation = actions[names[0]].play()
     animation.setLoop(THREE.LoopOnce)
     setKey(false)
+    
     }
     
-  },[tresorBoolean, key]);
+  },[tresorBoolean, openBox]);
   
   return (
     <>
@@ -391,8 +392,11 @@ function Model(props, onClick) {
     if(clickArmouryDrawingRoom == true){
       threeCamera.position.set(60, 0.1, 57.4);
     }
+    if(openBox == true){
+      threeCamera.position.set(36, 0.1, 46.6);
+    }
     
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre, key,openBox, cv])
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv])
   
     
   
@@ -467,7 +471,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}><
         
         {keyLost ? <Key position={(clickSabre)} scale={0.02}></Key> : null}
         
-        <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){ console.log(timer); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
+        <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){ console.log(timer)}; setTimeout(() => {setOpenBox(false)
   
 }, 8000);}}/>
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
