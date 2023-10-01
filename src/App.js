@@ -25,6 +25,10 @@ import logo from './assets/key.png'
 import { GoldenTrophy } from './GoldenTrophy'
 import Cv from './Cv'
 import PDFReader from './PDFReader'
+import ProgressBar from '@ramonak/react-progress-bar'
+import {
+  useProgress
+} from "@react-three/drei";
 
 
 const store = [
@@ -132,13 +136,23 @@ export default function App() {
   const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
   const [clickSabre, setClickSabre] = useState([79.6, -1, 80])
   const [singleTime, setSingleTime] = useState(false);
-  const [key, setKey] = useState(true);
+  const [key, setKey] = useState(false);
   const [keyLost, setKeyLost] = useState(true);
   const [tresor, setTresor] = useState([100, 0, 100])
   const [tresorBoolean, setTresorBoolean] = useState(false);
   const [openBox, setOpenBox] = useState(false);
   const [timer, setTimer] = useState(false)
   const [cv, setCv] = useState(false);
+  const [ready, set] = useState(false)
+  const [ready2, set2] = useState(false)
+  const [ready3, set3] = useState(false)
+  const [ready4, set4] = useState(false)
+  const [ready5, set5] = useState(false)
+  const [view, setView] = useState(false)
+  const [view2, setView2] = useState(false)
+  const [view3, setView3] = useState(false)
+  const [view4, setView4] = useState(false)
+  const [view5, setView5] = useState(false)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -183,11 +197,11 @@ function Model(props, onClick) {
     if(openBox == true && key == true){
     let animation = actions[names[0]].play()
     animation.setLoop(THREE.LoopOnce)
-    setKey(false)
+    setTimeout(() =>{setKey(false)}, 1000)
     
     }
     
-  },[tresorBoolean, openBox]);
+  },[tresorBoolean, openBox, key]);
   
   return (
     <>
@@ -398,7 +412,16 @@ function Model(props, onClick) {
     
   }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv])
   
-    
+  function Loader() {
+    const { active, progress, errors, item, loaded, total } = useProgress();
+    return <Html center>
+      
+        <div className="fullScreen">
+          <h1>{Math.trunc(progress)} % loaded</h1>
+        </div>
+      </Html>;
+  }  
+  
   
     
 
@@ -443,17 +466,20 @@ function Model(props, onClick) {
     <PDFReader></PDFReader>
     </div> : null }
     {key ? <div id='key'><img width="100" height="100" src={logo}></img></div> : null}
-    {openBox && !key && !tresorBoolean ? 
+    {openBox && !key && tresorBoolean != true ? 
     <div id='openBox'>
       <div id='textOpenBox'>
         <p>Vous n'avez pas la clé !</p>
       </div>
     </div> : null }
     <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
+    {setTimeout(() => {
+  console.log("Voici le premier message");
+}, 5000)}
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={3} />
       <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader></Loader>}>
         
         <Preload all />
         <Maison scale={1}  position={[0, 0, -5]}></Maison>
@@ -462,18 +488,18 @@ function Model(props, onClick) {
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
         <DragoonOfficerSabre onClick={()=> { if(singleTime == false){setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); setTimeout(() => {
-  setClickSabre(false);
+  setClickSabre([79.6, -1, 80]);
 }, 5000);
         }}} 
-rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}></DragoonOfficerSabre>
+rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.001}></DragoonOfficerSabre>
         {/* { tresorBoolean ? setTimeout(() =>{setTimer(true); console.log(timer)}, 1000) : null } */}
         <GoldenTrophy position={tresor} scale={0.0007} onClick={()=>{setCv(true)}}></GoldenTrophy>
         
         {keyLost ? <Key position={(clickSabre)} scale={0.02}></Key> : null}
         
-        <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){ console.log(timer)}; setTimeout(() => {setOpenBox(false)
+        <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){setTresor([36, 0, 46]); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
   
-}, 8000);}}/>
+}, 1000);}}/>
         {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
         {click && clickMusicBilliard != true  ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
@@ -485,6 +511,81 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, 0, 79.05]} scale={0.001}><
       </Suspense>
       </Physics>
     </Canvas>
+    {setTimeout(() => {
+  console.log("Voici le premier message");
+}, 5000)}
+    <div className="dot" />
+      <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
+      <p>Le but du jeu est de trouver mon CV en moins de 5 min. Pour celà il faudra trouver une clé cachée dans le chateau pour ouvrir un coffre qui contient le CV.</p>
+      <br></br>
+        <br></br>
+        <p>Enigme n°1 : Je suis un soldat qui porte le nom d'une bête légendaire</p>
+        <br></br>
+        <br></br>
+        <div className="stack">
+          <button onClick={() => set(true)}>Start</button>
+        </div>
+        <p>Conseil :Il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
+        <br></br>
+        <p>Pour obtenir directement le CV sans jouer cliquez sur le bouton ci-dessous</p>
+        <div className="stack">
+          <button onClick={() => setCv(true)}>CV</button>
+        </div>
+      </div>
+    {setTimeout(() => {
+  console.log("Voici le premier message");
+}, 5000)}
+    {/* {setTimeout(() =>{console.log(view2); setView2(true)}, 1000)}
+      {view2 && key == false ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
+          <p>Enigme n°2 : Je suis une arme partée par les officiers</p>
+          <div className="stack">
+            <button onClick={() => set2(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null }
+
+{setTimeout(() =>{setView3(true)}, 180000)}
+      {view3  && key == false ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready3 ? "ready" : "notready"} ${ready3 && "clicked"}`}>
+          <p>L'arme se trouve dans l'armurie.</p>
+          <div className="stack">
+            <button onClick={() => set3(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null }
+
+{setTimeout(() =>{setView4(true)}, 120000)}
+      {view4  && key == true ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready4 ? "ready" : "notready"} ${ready4 && "clicked"}`}>
+          <p>Enigme n°3 : La clé se montrera utile dans une piéce dédiée à l'amusement</p>
+          <div className="stack">
+            <button onClick={() => set4(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null }
+
+{setTimeout(() =>{setView5(true)}, 240000)}
+      {view5  && key == true ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready5 ? "ready" : "notready"} ${ready5 && "clicked"}`}>
+          <p>Le coffre se trouve dans la salle de billard</p>
+          <div className="stack">
+            <button onClick={() => set5(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null } */}
     </>
   )
 }
