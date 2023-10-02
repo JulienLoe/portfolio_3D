@@ -30,19 +30,6 @@ import 'bootstrap/dist/css/bootstrap.css';
         </div>
         <p>Conseil : Afin d'éviter la triche il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
       </div> */}
-      {setTimeout(() =>{setView(true)}, 90000)}
-      {view ?
-        <>
-        <div className="dot" />
-        <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
-          <p>Enigme n°2 : Je suis une arme partée par les officiers dragon</p>
-          <div className="stack">
-            <button onClick={() => set2(true)}>Start</button>
-          </div>
-        </div>
-        </>
-        : null }
-      
       </>
   )
   }

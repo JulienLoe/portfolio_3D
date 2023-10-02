@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture, Clone } from '@react-three/drei'
+import { Html, Preload, OrbitControls, useAnimations, useGLTF, useTexture, Clone, Stage, BakeShadows } from '@react-three/drei'
 import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
@@ -25,10 +25,10 @@ import logo from './assets/key.png'
 import { GoldenTrophy } from './GoldenTrophy'
 import Cv from './Cv'
 import PDFReader from './PDFReader'
-import ProgressBar from '@ramonak/react-progress-bar'
 import {
   useProgress
 } from "@react-three/drei";
+import { Castle } from './Castle'
 
 
 const store = [
@@ -153,6 +153,9 @@ export default function App() {
   const [view3, setView3] = useState(false)
   const [view4, setView4] = useState(false)
   const [view5, setView5] = useState(false)
+  const [viewCastle, setViewCastle] = useState(false)
+  const [viewCastleLarge, setViewCastleLarge] = useState(true)
+  const [titleStart, setTitleStart] = useState(true)
   const [position, setPosition] = useState([0, 0, 0]);
   const threeCamera = new THREE.PerspectiveCamera(
     75,
@@ -161,6 +164,7 @@ export default function App() {
     100
   );
   threeCamera.position.set(0, 0, -0.1);
+  // threeCamera.position.set(602, 0, 600);
 
   const listener = new THREE.AudioListener();
 threeCamera.add( listener );
@@ -388,6 +392,9 @@ function Model(props, onClick) {
   }
 
   useEffect(()=>{
+    if(viewCastle == true){
+      threeCamera.position.set(0, 0, -0.1);
+    }
     if(click == true){
       threeCamera.position.set(20, 0.1, 20.6);
     }
@@ -417,10 +424,27 @@ function Model(props, onClick) {
     return <Html center>
       
         <div className="fullScreen">
-          <h1>{Math.trunc(progress)} % loaded</h1>
+          <h1 id='btnStart'>{Math.trunc(progress)} % loaded</h1>
         </div>
       </Html>;
-  }  
+  }
+  
+const signs = document.querySelectorAll('x-sign')
+const randomIn = (min, max) => (
+  Math.floor(Math.random() * (max - min + 1) + min)
+)
+
+const mixupInterval = el => {
+  const ms = randomIn(2000, 4000)
+  el.style.setProperty('--interval', `${ms}ms`)
+}
+
+signs.forEach(el => {
+  mixupInterval(el)
+  el.addEventListener('webkitAnimationIteration', () => {
+    mixupInterval(el)
+  })
+})
   
   
     
@@ -472,10 +496,17 @@ function Model(props, onClick) {
         <p>Vous n'avez pas la clé !</p>
       </div>
     </div> : null }
-    <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
-    {setTimeout(() => {
-  console.log("Voici le premier message");
-}, 5000)}
+    {viewCastleLarge ? <Canvas shadows camera={{ position: [0, 0, 150], fov: 40 }}>
+      <Stage environment="city" intensity={0.6}>
+        <Castle position={[0, 0, 0]}></Castle>
+      </Stage>
+      <BakeShadows />
+      <OrbitControls makeDefault autoRotate />
+    </Canvas>
+    : null }
+
+    {viewCastle ? <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
+    
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={3} />
       <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
@@ -508,12 +539,37 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         {clickStartDrawingRoom && clickDrawingRoomArmoury != true ? <Portals_drawingRoom_start></Portals_drawingRoom_start> : null}
         {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Portals_drawingRoom_armoury></Portals_drawingRoom_armoury> : null}
         {clickDrawingRoomArmoury ? <Portals_armoury_drawingRoom></Portals_armoury_drawingRoom> : null}
+        
       </Suspense>
       </Physics>
     </Canvas>
-    {setTimeout(() => {
-  console.log("Voici le premier message");
-}, 5000)}
+    : null }
+    { viewCastleLarge ?
+      <div className="fullCastle">
+      <p id='titleGame'>CASTLEQUEST</p>
+      
+        <br></br>
+        <br></br>
+        <div className="stack">
+          <button id='x-sign' onClick={() => { setViewCastle(true); setPosition([0, 0, 0]); setViewCastleLarge(false) }}>Start</button>
+        </div>
+      </div>
+      :null}
+
+{ !viewCastleLarge && titleStart ?
+      <div className="fullCastle">
+      <p id='titleGame'>CASTLEQUEST</p>
+      
+        <br></br>
+        <br></br>
+        <div className="stack">
+          <button id='x-sign' onClick={() => { setTitleStart(false) }}>PLAY</button>
+        </div>
+      </div>
+      :null}
+      
+    {viewCastle ?
+    <> 
     <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
       <p>Le but du jeu est de trouver mon CV en moins de 5 min. Pour celà il faudra trouver une clé cachée dans le chateau pour ouvrir un coffre qui contient le CV.</p>
@@ -523,26 +579,25 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <br></br>
         <div className="stack">
-          <button onClick={() => set(true)}>Start</button>
+          <button id='x-sign' onClick={() => set(true)}>Start</button>
         </div>
         <p>Conseil :Il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
         <br></br>
         <p>Pour obtenir directement le CV sans jouer cliquez sur le bouton ci-dessous</p>
         <div className="stack">
-          <button onClick={() => setCv(true)}>CV</button>
+          <button class="glow-on-hover" onClick={() => setCv(true)}>CV</button>
         </div>
       </div>
-    {setTimeout(() => {
-  console.log("Voici le premier message");
-}, 5000)}
-    {/* {setTimeout(() =>{console.log(view2); setView2(true)}, 1000)}
+      </>
+   : null }
+    {setTimeout(() =>{console.log(view2); setView2(true)}, 120000)}
       {view2 && key == false ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
-          <p>Enigme n°2 : Je suis une arme partée par les officiers</p>
+          <p>Enigme n°2 : Je suis une arme portée par les officiers</p>
           <div className="stack">
-            <button onClick={() => set2(true)}>Continue</button>
+            <button id='x-sign' onClick={() => set2(true)}>Continue</button>
           </div>
         </div>
         </>
@@ -561,7 +616,8 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         </>
         : null }
 
-{setTimeout(() =>{setView4(true)}, 120000)}
+{setTimeout(() =>{setView4(true)}, 200000)}
+{setTimeout(() =>{setView4(true)}, 300000)}
       {view4  && key == true ?
         <>
         <div className="dot" />
@@ -575,6 +631,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         : null }
 
 {setTimeout(() =>{setView5(true)}, 240000)}
+{setTimeout(() =>{setView5(true)}, 340000)}
       {view5  && key == true ?
         <>
         <div className="dot" />
@@ -585,7 +642,11 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
           </div>
         </div>
         </>
-        : null } */}
+        : null }
+
+        
+
     </>
+   
   )
 }
