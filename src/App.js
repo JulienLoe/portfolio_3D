@@ -486,7 +486,7 @@ signs.forEach(el => {
       
     // }
   
-    const startTime = 70000;
+    const startTime = 300000;
 
     // Use this state value to hold how much time is remaining
     const [timeLeft, setTimeLeft] = useState(startTime);
@@ -555,7 +555,7 @@ signs.forEach(el => {
       setIsStarted(false);
     };
   
-
+    setTimeout(() =>{setIsStarted(true)}, 1000)
   return (
     <>
 
