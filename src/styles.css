@@ -187,6 +187,22 @@ p{
   height: 100vh;
 }
 
+#btnReturn{
+  position: absolute;
+  z-index: 9999;
+  transform: translateX(50%);
+  right: 50%;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
 .control-panel {
   font-size: 16px;
   color: black;
@@ -397,4 +413,78 @@ button{
 
 #titleGame{
   font-size: 80px;
+}
+
+#btnReturn:before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left:-2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+#btnReturn:active {
+  color: #000
+}
+
+#btnReturn:active:after {
+  background: transparent;
+}
+
+#btnReturn:hover:before {
+  opacity: 1;
+}
+
+#btnReturn:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.clock-section {
+  /* background: #6da2df; */
+  position: absolute;
+  z-index: 9999;
+  right: 0px;
+  background: transparent;
+  flex: 0.5;
+  height: 150px;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CircularProgressbar-path {
+  stroke: rgba(130, 224, 149) !important;
+}
+.CircularProgressbar-trail {
+  stroke: gray !important;
+}
+.CircularProgressbar-text {
+  fill: rgba(130, 224, 149) !important;
+}
+.CircularProgressbar-background {
+  fill: rgba(130, 224, 149) !important;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-around;
+  width: 250px;
 }

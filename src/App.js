@@ -29,6 +29,8 @@ import {
   useProgress
 } from "@react-three/drei";
 import { Castle } from './Castle'
+import { CircularProgressbar } from 'react-circular-progressbar'
+import "react-circular-progressbar/dist/styles.css";
 
 
 const store = [
@@ -484,10 +486,92 @@ signs.forEach(el => {
       
     // }
   
+    const startTime = 70000;
+
+    // Use this state value to hold how much time is remaining
+    const [timeLeft, setTimeLeft] = useState(startTime);
+  
+    // This state value holds whether the timer is paused or not
+    const [isPaused, setIsPaused] = useState(false);
+  
+    // Used to indicated if the timer has been started or not
+    const [isStarted, setIsStarted] = useState(false);
+  
+    // UseEffect hook runs every time one of our state values change,
+    // and handles the countdown
+    useEffect(() => {
+      // this function gets called by the setTimeout function.
+      // Whenever this function is called, we want to decrease the timeleft by 1000 milliseconds (or, 1 second)
+      const countdown = () => {
+        // we only want to decrease the timeleft if the timer is started AND the timer hasn't been paused
+        if (isStarted && !isPaused) {
+          setTimeLeft(timeLeft - 1000);
+        }
+      };
+  
+      // This is just the timeout function. every 1000 milliseconds, the countdown function gets called
+      // we store the timeout function in a 'timer' variable so we can clear it later.
+      const timer = setTimeout(countdown, 1000);
+  
+      // if isStarted is false, it means the timer hasn't been started (ie the app has just loaded)
+      // or was reset
+      // If this is the case, we want to set the time left to the default (startTime) and we want to
+      // clear the timer - setTimeout function stays present until the window was refreshed!
+      if (isStarted === false) {
+        setTimeLeft(startTime);
+        return clearTimeout(timer);
+      }
+  
+      // if timeleft is 0, we want to clear the timer to stop it from running
+      if (timeLeft === 0) {
+        return clearTimeout(timer);
+      }
+    }, [isStarted, timeLeft, isPaused]); // <---- when these variables change, the useEffect hook will run!
+  
+    // Since the time remaining is in milliseconds, we want to format this to minutes
+    const getMinutes = () => {
+      let minutes = Math.floor((timeLeft / 1000 / 60) % 60);
+      // This just adds a "0" if the number is less than 10 for formatting purposes
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
+      return minutes;
+    };
+  
+    // Since the time remaining is in milliseconds, we want to format this to seconds. Returns a string
+    const getSeconds = () => {
+      let seconds = Math.floor((timeLeft / 1000) % 60);
+      // This just adds a "0" if the number is less than 10 for formatting purposes
+      if (seconds < 10) {
+        seconds = "0" + seconds;
+      }
+      return seconds;
+    };
+  
+    // called when the "reset" button is clicked. This resets our state values, causing the
+    // logic in the useEffect hook to rerun
+    const resetTimer = () => {
+      setIsPaused(false);
+      setIsStarted(false);
+    };
+  
+
   return (
     <>
+
+<div className="clock-section">
+        <div className="clock-container">
+          <CircularProgressbar //see the library here: https://www.npmjs.com/package/react-circular-progressbar
+            maxValue={startTime}
+            value={startTime - timeLeft}
+            text={`${getMinutes()}:${getSeconds()}`} //here we call the getMinutes() and getSeconds() to get our displayable strings
+          />
+        </div>
+      </div>
+
     {cv ? <div id='cv'>
     <PDFReader></PDFReader>
+    <button id='btnReturn' onClick={() =>{setCv(false)}}>Return game</button>
     </div> : null }
     {key ? <div id='key'><img width="100" height="100" src={logo}></img></div> : null}
     {openBox && !key && tresorBoolean != true ? 
@@ -544,6 +628,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </Physics>
     </Canvas>
     : null }
+    {ready ? setTimeout(() =>{setTitleStart(false)}, 4000) : null}
     { viewCastleLarge ?
       <div className="fullCastle">
       <p id='titleGame'>CASTLEQUEST</p>
@@ -551,20 +636,16 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <br></br>
         <div className="stack">
-          <button id='x-sign' onClick={() => { setViewCastle(true); setPosition([0, 0, 0]); setViewCastleLarge(false) }}>Start</button>
+          <button id='x-sign' onClick={() => { setViewCastle(true); setPosition([0, 0, 0]); setViewCastleLarge(false) }}>START</button>
         </div>
       </div>
       :null}
 
-{ !viewCastleLarge && titleStart ?
+{ ready && titleStart ?
       <div className="fullCastle">
       <p id='titleGame'>CASTLEQUEST</p>
       
-        <br></br>
-        <br></br>
-        <div className="stack">
-          <button id='x-sign' onClick={() => { setTitleStart(false) }}>PLAY</button>
-        </div>
+        
       </div>
       :null}
       
@@ -579,7 +660,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <br></br>
         <div className="stack">
-          <button id='x-sign' onClick={() => set(true)}>Start</button>
+          <button id='x-sign' onClick={() => set(true)}>START</button>
         </div>
         <p>Conseil :Il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
         <br></br>
@@ -591,7 +672,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </>
    : null }
     {setTimeout(() =>{console.log(view2); setView2(true)}, 120000)}
-      {view2 && key == false ?
+      {view2 && key == false && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
@@ -604,13 +685,13 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         : null }
 
 {setTimeout(() =>{setView3(true)}, 180000)}
-      {view3  && key == false ?
+      {view3  && key == false && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready3 ? "ready" : "notready"} ${ready3 && "clicked"}`}>
           <p>L'arme se trouve dans l'armurie.</p>
           <div className="stack">
-            <button onClick={() => set3(true)}>Continue</button>
+            <button id='x-sign' onClick={() => set3(true)}>Continue</button>
           </div>
         </div>
         </>
@@ -618,13 +699,13 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
 
 {setTimeout(() =>{setView4(true)}, 200000)}
 {setTimeout(() =>{setView4(true)}, 300000)}
-      {view4  && key == true ?
+      {view4  && key == true && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready4 ? "ready" : "notready"} ${ready4 && "clicked"}`}>
           <p>Enigme n°3 : La clé se montrera utile dans une piéce dédiée à l'amusement</p>
           <div className="stack">
-            <button onClick={() => set4(true)}>Continue</button>
+            <button id='x-sign' onClick={() => set4(true)}>Continue</button>
           </div>
         </div>
         </>
@@ -632,13 +713,13 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
 
 {setTimeout(() =>{setView5(true)}, 240000)}
 {setTimeout(() =>{setView5(true)}, 340000)}
-      {view5  && key == true ?
+      {view5  && key == true && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready5 ? "ready" : "notready"} ${ready5 && "clicked"}`}>
           <p>Le coffre se trouve dans la salle de billard</p>
           <div className="stack">
-            <button onClick={() => set5(true)}>Continue</button>
+            <button id='x-sign' onClick={() => set5(true)}>Continue</button>
           </div>
         </div>
         </>
