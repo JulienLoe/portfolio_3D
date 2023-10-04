@@ -1,3 +1,4 @@
+
 import * as THREE from 'three'
 import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
@@ -23,78 +24,11 @@ import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
 import { Navigate, Route, Routes, useNavigate } from 'react-router'
+import Index from './index'; 
 import { Link } from 'react-router-dom'
 
-
-
-function Dome({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
-        <sphereGeometry args={[0.2, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
-
-function Dome2({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[21, 0, 21]}>
-        <sphereGeometry args={[0.3, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
-
-
-function Dome_billiard_music({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[34.6, 0, 48.7]}>
-        <sphereGeometry args={[0.4, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
-
-export default function App() {
-  
- 
-  const [click, setClick] = useState(false)
+const Scene = () => {
+    const [click, setClick] = useState(false)
   const [clickMusicBilliard, setClickMusicBilliard] = useState(false)
   const [clickBilliardMusic, setClickBilliardMusic] = useState(false) 
   const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
@@ -188,6 +122,70 @@ function Model(props, onClick) {
     </>
   )
 }
+
+function Dome({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
+          <sphereGeometry args={[0.2, 22, 22]} />
+          <meshBasicMaterial color="white" />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+  
+  function Dome2({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[21, 0, 21]}>
+          <sphereGeometry args={[0.3, 22, 22]} />
+          <meshBasicMaterial color="white" />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
+  
+  
+  function Dome_billiard_music({ name, position, texture, onClick }) {
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[34.6, 0, 48.7]}>
+          <sphereGeometry args={[0.4, 22, 22]} />
+          <meshBasicMaterial color="white" />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  }
 
   function Dome_music_billiard({ name, position, texture, onClick }) {
     const [clicked, setClicked] = useState(false)
@@ -478,7 +476,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
     </Canvas>
     : null }
     {ready ? setTimeout(() =>{setTitleStart(false)}, 4000) : null}
-    {ready ? setTimeout(() =>{setGameOver(true)}, 10000) : null}
+    {ready ? setTimeout(() =>{setGameOver(true)}, 300000) : null}
     { viewCastleLarge ?
       <div className="fullCastle">
       <p id='titleGame'>CASTLEQUEST</p>
@@ -499,7 +497,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </div>
       :null}
 
-{ ready && gameOver ?
+{ ready && !gameOver ?
       <div className="fullCastle">
       <p id='x-sign2'>GAME OVER</p>
       
@@ -507,7 +505,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <div className="stack">
           
-          <button id='x-sign' onClick={() =>{setGameOver(false)}} ><Link to="/restart">RESTART</Link></button>
+          <button id='x-sign' onClick={() =>navigate("/")}>RESTART</button>
         </div>
         
       </div>
@@ -588,4 +586,6 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         : null }
     </>
   )
-}
+};
+
+export default Scene;

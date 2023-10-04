@@ -8,6 +8,7 @@ import { createRoot } from "react-dom/client"
 import { Stats } from '@react-three/drei'
 import { Leva } from 'leva';
 import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 
 
@@ -18,6 +19,13 @@ import 'bootstrap/dist/css/bootstrap.css';
     
   return(
     <>
+    <BrowserRouter>
+
+    <Routes>
+    <Route path='/restart' element={<App></App>} />
+  
+  </Routes>
+
     <App />
     <Stats />
     <Leva collapsed />
@@ -30,6 +38,7 @@ import 'bootstrap/dist/css/bootstrap.css';
         </div>
         <p>Conseil : Afin d'éviter la triche il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
       </div> */}
+      </BrowserRouter>
       </>
   )
   }

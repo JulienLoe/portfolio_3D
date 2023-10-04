@@ -321,6 +321,21 @@ button{
   line-height: 1.1;
 }
 
+#x-sign2 {
+  --interval: 1s;
+  display: block;
+  text-shadow: 
+    0 0 10px var(--color1),
+    0 0 20px var(--color2),
+    0 0 40px var(--color3),
+    0 0 80px var(--color4);
+  will-change: filter, color;
+  filter: saturate(60%);
+  animation: flicker steps(100) var(--interval) 1s infinite;
+  font-size: calc(1em + 3vmax);
+  line-height: 1.1;
+}
+
 #x-sign:nth-of-type(1) {
   color: yellow;
   --color1: goldenrod;
@@ -328,6 +343,15 @@ button{
   --color3: mediumblue;
   --color4: purple;
   font-family: Gruppo;
+}
+
+#x-sign2:nth-of-type(1) {
+  color: tomato;
+  --color1: orangered;
+  --color2: firebrick;
+  --color3: maroon;
+  --color4: darkred;
+  font-family: Yellowtail;
 }
 
 @keyframes flicker {
@@ -458,6 +482,7 @@ button{
 
 .clock-section {
   /* background: #6da2df; */
+  margin: 20px;
   position: absolute;
   z-index: 9999;
   right: 0px;
@@ -471,13 +496,13 @@ button{
 }
 
 .CircularProgressbar-path {
-  stroke: rgba(130, 224, 149) !important;
+  stroke: rgb(234, 247, 237) !important;
 }
 .CircularProgressbar-trail {
   stroke: gray !important;
 }
 .CircularProgressbar-text {
-  fill: rgba(130, 224, 149) !important;
+  fill: rgb(214, 223, 216) !important;
 }
 .CircularProgressbar-background {
   fill: rgba(130, 224, 149) !important;
