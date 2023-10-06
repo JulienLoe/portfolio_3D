@@ -360,6 +360,7 @@ function Model(props, onClick) {
     return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false) }}/>
   }
   let timerClean
+  let timerView2
   useEffect(()=>{
     if(viewCastle == true){
       threeCamera.position.set(0, 0, -0.1);
@@ -387,16 +388,18 @@ function Model(props, onClick) {
     }
    
    
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, restart])
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, gameOver])
   // let gameTimeOut = setTimeout(() =>{setGameOver(true)}, 20000) 
   useEffect(() =>{
     
    
     
-    
+      if(ready == true){
       clearTimeout(timerClean)
-      timerClean = setTimeout(() =>{setGameOver(true)}, 20000)
-     
+      clearTimeout(timerView2)
+      timerClean = setTimeout(() =>{setGameOver(true)}, 40000)
+      timerView2 = setTimeout(() =>{console.log(view2); setView2(true)}, 100000)
+      }
   }, [ready, restart])
 
   function Loader() {
@@ -553,7 +556,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
           
           <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean) }} >RESTART</button>
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean); clearTimeout(timerView2) }} >RESTART</button>
         </div>
         
       </div>
@@ -581,7 +584,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </div>
       </>
    : null }
-    {ready ? setTimeout(() =>{console.log(view2); setView2(true)}, 100000) : null}
+    {/* {ready ? setTimeout(() =>{console.log(view2); setView2(true)}, 100000) : null} */}
       {view2 && key == false && ready ?
         <>
         <div className="dot" />
