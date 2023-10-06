@@ -121,6 +121,7 @@ export default function App() {
   const [viewCastleLarge, setViewCastleLarge] = useState(true)
   const [titleStart, setTitleStart] = useState(true)
   const [gameOver, setGameOver] = useState(false)
+  const [restart, setRestart] = useState(false)
   const [position, setPosition] = useState([0, 0, 0]);
   const navigate = useNavigate();
  
@@ -358,7 +359,7 @@ function Model(props, onClick) {
   function Portals_armoury_drawingRoom() {
     return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false) }}/>
   }
-
+  let timerClean
   useEffect(()=>{
     if(viewCastle == true){
       threeCamera.position.set(0, 0, -0.1);
@@ -384,9 +385,20 @@ function Model(props, onClick) {
     if(openBox == true){
       threeCamera.position.set(36, 0.1, 46.6);
     }
+   
+   
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, restart])
+  // let gameTimeOut = setTimeout(() =>{setGameOver(true)}, 20000) 
+  useEffect(() =>{
     
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv])
-  
+   
+    
+    
+      clearTimeout(timerClean)
+      timerClean = setTimeout(() =>{setGameOver(true)}, 20000)
+     
+  }, [ready, restart])
+
   function Loader() {
     const { progress } = useProgress();
     return <Html center>
@@ -413,8 +425,10 @@ signs.forEach(el => {
     mixupInterval(el)
   })
 })
-  
-    
+
+// if (ready){  
+//   timerClean = setTimeout(() =>{setGameOver(true)}, 20000)}
+
   return (
     <>
     {ready ? <Timer isStarted></Timer> : null }
@@ -478,7 +492,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
     </Canvas>
     : null }
     {ready ? setTimeout(() =>{setTitleStart(false)}, 4000) : null}
-    {ready ? setTimeout(() =>{setGameOver(true)}, 10000) : null}
+    
     { viewCastleLarge ?
       <div className="fullCastle">
       <p id='titleGame'>CASTLEQUEST</p>
@@ -499,7 +513,37 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </div>
       :null}
 
-{ ready && gameOver ?
+
+{/* const [click, setClick] = useState(false)
+  const [clickMusicBilliard, setClickMusicBilliard] = useState(false)
+  const [clickBilliardMusic, setClickBilliardMusic] = useState(false) 
+  const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
+  const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
+  const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
+  const [clickSabre, setClickSabre] = useState([79.6, -1, 80])
+  const [singleTime, setSingleTime] = useState(false);
+  const [key, setKey] = useState(false);
+  const [keyLost, setKeyLost] = useState(true);
+  const [tresor, setTresor] = useState([100, 0, 100])
+  const [tresorBoolean, setTresorBoolean] = useState(false);
+  const [openBox, setOpenBox] = useState(false);
+  const [cv, setCv] = useState(false);
+  const [ready, set] = useState(false)
+  const [ready2, set2] = useState(false)
+  const [ready3, set3] = useState(false)
+  const [ready4, set4] = useState(false)
+  const [ready5, set5] = useState(false)
+  const [view2, setView2] = useState(false)
+  const [view3, setView3] = useState(false)
+  const [view4, setView4] = useState(false)
+  const [view5, setView5] = useState(false)
+  const [viewCastle, setViewCastle] = useState(false)
+  const [viewCastleLarge, setViewCastleLarge] = useState(true)
+  const [titleStart, setTitleStart] = useState(true)
+  const [gameOver, setGameOver] = useState(false)
+  const [position, setPosition] = useState([0, 0, 0]); */}
+
+{ gameOver ?
       <div className="fullCastle">
       <p id='x-sign2'>GAME OVER</p>
       
@@ -507,7 +551,9 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <div className="stack">
           
-          <button id='x-sign' onClick={() =>{setGameOver(false)}} ><Link to="/restart">RESTART</Link></button>
+          <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
+           setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean) }} >RESTART</button>
         </div>
         
       </div>
@@ -524,7 +570,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <br></br>
         <br></br>
         <div className="stack">
-          <button id='x-sign' onClick={() => set(true)}>START</button>
+          <button id='x-sign' onClick={() =>set(true)}>START</button>
         </div>
         <p>Conseil :Il faudra être précis lors de la sélection de l'objet avec votre pointeur</p>
         <br></br>

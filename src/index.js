@@ -21,10 +21,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
     <>
     <BrowserRouter>
 
-    <Routes>
-    <Route path='/restart' element={<App></App>} />
-  
-  </Routes>
 
     <App />
     <Stats />
