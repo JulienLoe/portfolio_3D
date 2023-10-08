@@ -22,8 +22,6 @@ import {
 import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
-import { Navigate, Route, Routes, useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
 
 
 
@@ -40,7 +38,7 @@ function Dome({ name, position, texture, onClick }) {
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -61,7 +59,7 @@ function Dome2({ name, position, texture, onClick }) {
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -83,7 +81,7 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
         <meshBasicMaterial color="white" />
         <Html center>
           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           </Popconfirm>
         </Html>
       </mesh>
@@ -122,12 +120,11 @@ export default function App() {
   const [titleStart, setTitleStart] = useState(true)
   const [gameOver, setGameOver] = useState(false)
   const [restart, setRestart] = useState(false)
+  const [toogleMusic, setToogleMusic] = useState(false)
   const [position, setPosition] = useState([0, 0, 0]);
-  const navigate = useNavigate();
+
+
  
-  const handleGoHome = () => {
-    navigate(-1); // New line
-  };
   const threeCamera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -137,6 +134,7 @@ export default function App() {
   threeCamera.position.set(0, 0, -0.1);
   // threeCamera.position.set(602, 0, 600);
 
+  useEffect(() =>{
   const listener = new THREE.AudioListener();
 threeCamera.add( listener );
 
@@ -145,12 +143,22 @@ const sound = new THREE.Audio( listener );
 
 // load a sound and set it as the Audio object's buffer
 const audioLoader = new THREE.AudioLoader();
+
+  console.log(toogleMusic)
 audioLoader.load( song, function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
 	sound.setVolume( 0.5 );
 	sound.play();
+
+console.log(toogleMusic)
+
+  if(toogleMusic){
+    console.log(toogleMusic)
+    sound.stop();
+  }
 });
+}, [toogleMusic])
 
 const [isStarted, setIsStarted] = useState(false);
 
@@ -203,7 +211,7 @@ function Model(props, onClick) {
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
+              <a  id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
             </Popconfirm>
           </Html>
         </mesh>
@@ -224,7 +232,7 @@ function Model(props, onClick) {
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
             </Popconfirm>
           </Html>
         </mesh>
@@ -245,7 +253,7 @@ function Model(props, onClick) {
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
             </Popconfirm>
           </Html>
         </mesh>
@@ -266,7 +274,7 @@ function Model(props, onClick) {
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Armurie</a>
+              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Armurie</a>
             </Popconfirm>
           </Html>
         </mesh>
@@ -287,7 +295,7 @@ function Model(props, onClick) {
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
             </Popconfirm>
           </Html>
         </mesh>
@@ -361,6 +369,10 @@ function Model(props, onClick) {
   }
   let timerClean
   let timerView2
+  let timerView3
+  let timerView4
+  let timerView5
+  
   useEffect(()=>{
     if(viewCastle == true){
       threeCamera.position.set(0, 0, -0.1);
@@ -388,19 +400,58 @@ function Model(props, onClick) {
     }
    
    
-  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, gameOver])
+  }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, gameOver, ready, ready2, ready3, ready4, ready5])
   // let gameTimeOut = setTimeout(() =>{setGameOver(true)}, 20000) 
   useEffect(() =>{
     
    
     
       if(ready == true){
+      ()=>{
       clearTimeout(timerClean)
       clearTimeout(timerView2)
-      timerClean = setTimeout(() =>{setGameOver(true)}, 40000)
-      timerView2 = setTimeout(() =>{console.log(view2); setView2(true)}, 100000)
+      clearTimeout(timerView3)
+      clearTimeout(timerView4)
+      clearTimeout(timerView5)
+      clearTimeout(timerSabre)}
+      timerClean = setTimeout(() =>{setGameOver(true)}, 480000)
+      if(ready && !key){
+        ()=>{
+          clearTimeout(timerClean)
+          clearTimeout(timerView2)
+          clearTimeout(timerView3)
+          clearTimeout(timerView4)
+          clearTimeout(timerView5)
+          clearTimeout(timerSabre)};
+      timerView2 = setTimeout(() =>{setView2(true)}, 20000)
       }
-  }, [ready, restart])
+      if(ready2 && !key){
+      timerView3 = setTimeout(() =>{setView3(true)}, 180000)
+      }
+      if(key){
+      console.log(timerView2);
+      ()=>{
+        clearTimeout(timerClean);
+        clearTimeout(timerView2);
+        clearTimeout(timerView3);
+        clearTimeout(timerView4);
+        clearTimeout(timerView5);
+        clearTimeout(timerSabre)};
+      timerView4 = setTimeout(() =>{setView4(true)}, 20000)
+      }
+      if(key && ready4){
+        ()=>{
+          clearTimeout(timerClean)
+          clearTimeout(timerView2)
+          clearTimeout(timerView3)
+          clearTimeout(timerView4)
+          clearTimeout(timerView5)
+          clearTimeout(timerSabre)};
+      timerView5 = setTimeout(() =>{setView5(true)}, 15000)
+      }
+      
+      }
+  }, [ready, restart, ready2, ready3, ready4, key])
 
   function Loader() {
     const { progress } = useProgress();
@@ -429,12 +480,11 @@ signs.forEach(el => {
   })
 })
 
-// if (ready){  
-//   timerClean = setTimeout(() =>{setGameOver(true)}, 20000)}
-
+let timerSabre
   return (
     <>
     {ready ? <Timer isStarted></Timer> : null }
+    <button id='btnReturn' >MENU</button>
     {cv ? <div id='cv'>
     <PDFReader></PDFReader>
     <button id='btnReturn' onClick={() =>{setCv(false)}}>Return game</button>
@@ -468,7 +518,12 @@ signs.forEach(el => {
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); setTimeout(() => {
+        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){clearTimeout(timerClean);
+        clearTimeout(timerView2);
+        clearTimeout(timerView3);
+        clearTimeout(timerView4);
+        clearTimeout(timerView5);
+        clearTimeout(timerSabre);setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); timerSabre = setTimeout(() => {
   setClickSabre([79.6, -1, 80]);
 }, 5000);
         }}} 
@@ -517,35 +572,6 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       :null}
 
 
-{/* const [click, setClick] = useState(false)
-  const [clickMusicBilliard, setClickMusicBilliard] = useState(false)
-  const [clickBilliardMusic, setClickBilliardMusic] = useState(false) 
-  const [clickStartDrawingRoom, setClickStartDrawingRoom] = useState(false)
-  const [clickDrawingRoomArmoury, setClickDrawingRoomArmoury] = useState(false)
-  const [clickArmouryDrawingRoom, setClickArmouryDrawingRoom] = useState(false)
-  const [clickSabre, setClickSabre] = useState([79.6, -1, 80])
-  const [singleTime, setSingleTime] = useState(false);
-  const [key, setKey] = useState(false);
-  const [keyLost, setKeyLost] = useState(true);
-  const [tresor, setTresor] = useState([100, 0, 100])
-  const [tresorBoolean, setTresorBoolean] = useState(false);
-  const [openBox, setOpenBox] = useState(false);
-  const [cv, setCv] = useState(false);
-  const [ready, set] = useState(false)
-  const [ready2, set2] = useState(false)
-  const [ready3, set3] = useState(false)
-  const [ready4, set4] = useState(false)
-  const [ready5, set5] = useState(false)
-  const [view2, setView2] = useState(false)
-  const [view3, setView3] = useState(false)
-  const [view4, setView4] = useState(false)
-  const [view5, setView5] = useState(false)
-  const [viewCastle, setViewCastle] = useState(false)
-  const [viewCastleLarge, setViewCastleLarge] = useState(true)
-  const [titleStart, setTitleStart] = useState(true)
-  const [gameOver, setGameOver] = useState(false)
-  const [position, setPosition] = useState([0, 0, 0]); */}
-
 { gameOver ?
       <div className="fullCastle">
       <p id='x-sign2'>GAME OVER</p>
@@ -556,7 +582,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
           
           <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean); clearTimeout(timerView2) }} >RESTART</button>
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean); clearTimeout(timerView2); clearTimeout(timerView3); clearTimeout(timerView4); setKeyLost(true) }} >RESTART</button>
         </div>
         
       </div>
@@ -597,7 +623,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         </>
         : null }
 
-{ready && ready2 ? setTimeout(() =>{setView3(true)}, 180000) : null}
+{/* {ready && ready2 ? setTimeout(() =>{setView3(true)}, 180000) : null} */}
       {view3  && key == false && ready ?
         <>
         <div className="dot" />
@@ -610,7 +636,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         </>
         : null }
 
-{key && ready3 ? setTimeout(() =>{setView4(true)}, 60000) : null}
+{/* {key && ready3 ? setTimeout(() =>{setView4(true)}, 60000) : null} */}
       {view4  && key == true && ready ?
         <>
         <div className="dot" />
@@ -623,7 +649,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         </>
         : null }
 
-{ key && ready4 ? setTimeout(() =>{setView5(true)}, 120000) : null}
+{/* { key && ready4 ? setTimeout(() =>{setView5(true)}, 120000) : null} */}
       {view5  && key == true && ready ?
         <>
         <div className="dot" />
