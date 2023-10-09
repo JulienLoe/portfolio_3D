@@ -407,51 +407,32 @@ function Model(props, onClick) {
    
     
       if(ready == true){
-      ()=>{
-      clearTimeout(timerClean)
-      clearTimeout(timerView2)
-      clearTimeout(timerView3)
-      clearTimeout(timerView4)
-      clearTimeout(timerView5)
-      clearTimeout(timerSabre)}
+      
       timerClean = setTimeout(() =>{setGameOver(true)}, 480000)
       if(ready && !key){
-        ()=>{
-          clearTimeout(timerClean)
-          clearTimeout(timerView2)
-          clearTimeout(timerView3)
-          clearTimeout(timerView4)
-          clearTimeout(timerView5)
-          clearTimeout(timerSabre)};
+        
       timerView2 = setTimeout(() =>{setView2(true)}, 20000)
       }
       if(ready2 && !key){
+      clearTimeout(timerView2)
       timerView3 = setTimeout(() =>{setView3(true)}, 180000)
       }
       if(key){
       console.log(timerView2);
-      ()=>{
-        clearTimeout(timerClean);
-        clearTimeout(timerView2);
-        clearTimeout(timerView3);
-        clearTimeout(timerView4);
-        clearTimeout(timerView5);
-        clearTimeout(timerSabre)};
+      
       timerView4 = setTimeout(() =>{setView4(true)}, 20000)
       }
       if(key && ready4){
-        ()=>{
-          clearTimeout(timerClean)
-          clearTimeout(timerView2)
-          clearTimeout(timerView3)
-          clearTimeout(timerView4)
-          clearTimeout(timerView5)
-          clearTimeout(timerSabre)};
+        
       timerView5 = setTimeout(() =>{setView5(true)}, 15000)
       }
       
       }
   }, [ready, restart, ready2, ready3, ready4, key])
+
+  useEffect(() => {
+    return () => clearTimeout(timerView2);
+  }, [key]);
 
   function Loader() {
     const { progress } = useProgress();
@@ -497,11 +478,13 @@ let timerSabre
       </div>
     </div> : null }
     {viewCastleLarge ? <Canvas shadows camera={{ position: [0, 0, 150], fov: 40 }}>
+    <Suspense fallback={<Loader></Loader>}>
       <Stage environment="city" intensity={0.6}>
         <Castle position={[0, 0, 0]}></Castle>
       </Stage>
       <BakeShadows />
       <OrbitControls makeDefault autoRotate />
+      </Suspense>
     </Canvas>
     : null }
 
@@ -582,7 +565,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
           
           <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerClean); clearTimeout(timerView2); clearTimeout(timerView3); clearTimeout(timerView4); setKeyLost(true) }} >RESTART</button>
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerView2); clearTimeout(timerView3); setKeyLost(true) }} >RESTART</button>
         </div>
         
       </div>
