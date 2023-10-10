@@ -401,30 +401,38 @@ function Model(props, onClick) {
    
    
   }, [click, clickMusicBilliard, clickBilliardMusic, clickStartDrawingRoom, clickDrawingRoomArmoury, clickArmouryDrawingRoom, clickSabre,openBox, key, cv, viewCastle, viewCastleLarge, gameOver, ready, ready2, ready3, ready4, ready5])
-  // let gameTimeOut = setTimeout(() =>{setGameOver(true)}, 20000) 
+  // let gameTimeOut = setTimeout(() =>{setGameOver(true)}, 20000)
+  
+  
   useEffect(() =>{
     
-   
+
     
       if(ready == true){
-      
-      timerClean = setTimeout(() =>{setGameOver(true)}, 480000)
-      if(ready && !key){
         
-      timerView2 = setTimeout(() =>{setView2(true)}, 20000)
+      
+      timerClean = setTimeout(() =>{setGameOver(true)}, 484000);
+
+      
+      if(ready ){
+       
+          
+        
+      timerView2 = setTimeout(() =>{setView2(true)}, 100000)
+      
       }
       if(ready2 && !key){
-      clearTimeout(timerView2)
+        
       timerView3 = setTimeout(() =>{setView3(true)}, 180000)
       }
-      if(key){
-      console.log(timerView2);
+      if(key &&ready2){
       
-      timerView4 = setTimeout(() =>{setView4(true)}, 20000)
+       
+      timerView4 = setTimeout(() =>{setView4(true)}, 60000)
       }
       if(key && ready4){
         
-      timerView5 = setTimeout(() =>{setView5(true)}, 15000)
+      timerView5 = setTimeout(() =>{setView5(true)}, 120000)
       }
       
       }
@@ -465,7 +473,9 @@ let timerSabre
   return (
     <>
     {ready ? <Timer isStarted></Timer> : null }
-    <button id='btnReturn' >MENU</button>
+    {ready ? <button id='btnReturn' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
+           setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true); clearTimeout(timerClean); clearTimeout(timerView2); clearTimeout(timerView3); clearTimeout(timerView4); clearTimeout(timerView5); clearTimeout(timerSabre) }} ><a href='http://localhost:3000'>RESTART</a></button> : null }
     {cv ? <div id='cv'>
     <PDFReader></PDFReader>
     <button id='btnReturn' onClick={() =>{setCv(false)}}>Return game</button>
@@ -501,12 +511,8 @@ let timerSabre
         <Billiards_room scale={1} position={[38, -5, 40]}></Billiards_room>
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
-        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){clearTimeout(timerClean);
-        clearTimeout(timerView2);
-        clearTimeout(timerView3);
-        clearTimeout(timerView4);
-        clearTimeout(timerView5);
-        clearTimeout(timerSabre);setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); timerSabre = setTimeout(() => {
+        <DragoonOfficerSabre onClick={()=> { if(singleTime == false){
+        setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); timerSabre = setTimeout(() => {
   setClickSabre([79.6, -1, 80]);
 }, 5000);
         }}} 
@@ -565,7 +571,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
           
           <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); clearTimeout(timerView2); clearTimeout(timerView3); setKeyLost(true) }} >RESTART</button>
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true) }} ><a href='http://localhost:3000'>RESTART</a></button>
         </div>
         
       </div>
@@ -593,12 +599,26 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       </div>
       </>
    : null }
+
     {/* {ready ? setTimeout(() =>{console.log(view2); setView2(true)}, 100000) : null} */}
       {view2 && key == false && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
           <p>Enigme n°2 : Je suis une arme portée par les officiers</p>
+          <div className="stack">
+            <button id='x-sign' onClick={() => set2(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null }
+
+        {/* {ready ? setTimeout(() =>{console.log(view2); setView2(true)}, 100000) : null} */}
+      {view2 && key == true && ready ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
+          <p>Le premier modèle de table connu est attribué au maître ébéniste Henri de Vigne</p>
           <div className="stack">
             <button id='x-sign' onClick={() => set2(true)}>Continue</button>
           </div>
@@ -619,12 +639,25 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         </>
         : null }
 
+{/* {ready && ready2 ? setTimeout(() =>{setView3(true)}, 180000) : null} */}
+{view3  && key == true && ready ?
+        <>
+        <div className="dot" />
+        <div className={`fullscreen bg ${ready3 ? "ready" : "notready"} ${ready3 && "clicked"}`}>
+          <p>Ses dimensions étaient de huit pieds de long et quatre de large, il pesait 618 livres.</p>
+          <div className="stack">
+            <button id='x-sign' onClick={() => set3(true)}>Continue</button>
+          </div>
+        </div>
+        </>
+        : null }
+
 {/* {key && ready3 ? setTimeout(() =>{setView4(true)}, 60000) : null} */}
       {view4  && key == true && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready4 ? "ready" : "notready"} ${ready4 && "clicked"}`}>
-          <p>Enigme n°3 : La clé se montrera utile dans une piéce dédiée à l'amusement</p>
+          <p>La clé se montrera utile dans une piéce dédiée à l'amusement</p>
           <div className="stack">
             <button id='x-sign' onClick={() => set4(true)}>Continue</button>
           </div>

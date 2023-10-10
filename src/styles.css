@@ -502,7 +502,7 @@ button{
   stroke: gray !important;
 }
 .CircularProgressbar-text {
-  fill: rgb(214, 223, 216) !important;
+  fill: rgb(250, 255, 251) !important;
 }
 .CircularProgressbar-background {
   fill: rgba(130, 224, 149) !important;
@@ -536,4 +536,9 @@ button{
 
 #buttonMusic button{
   color: white;
+}
+
+#btnReturn a{
+  color: white;
+  text-decoration: none;
 }
