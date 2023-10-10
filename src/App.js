@@ -438,9 +438,9 @@ function Model(props, onClick) {
       }
   }, [ready, restart, ready2, ready3, ready4, key])
 
-  useEffect(() => {
-    return () => clearTimeout(timerView2);
-  }, [key]);
+  // useEffect(() => {
+  //   return () => clearTimeout(timerView2);
+  // }, [key]);
 
   function Loader() {
     const { progress } = useProgress();
@@ -473,9 +473,7 @@ let timerSabre
   return (
     <>
     {ready ? <Timer isStarted></Timer> : null }
-    {ready ? <button id='btnReturn' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
-           setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true); clearTimeout(timerClean); clearTimeout(timerView2); clearTimeout(timerView3); clearTimeout(timerView4); clearTimeout(timerView5); clearTimeout(timerSabre) }} ><a href='http://localhost:3000'>RESTART</a></button> : null }
+    {ready ? <button id='btnReturn' ><a href='http://localhost:3000'>RESTART</a></button> : null }
     {cv ? <div id='cv'>
     <PDFReader></PDFReader>
     <button id='btnReturn' onClick={() =>{setCv(false)}}>Return game</button>
@@ -568,10 +566,10 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
       <br></br>
         <br></br>
         <div className="stack">
-          
-          <button id='x-sign' onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
+        {/* onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
-           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true) }} ><a href='http://localhost:3000'>RESTART</a></button>
+           set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true) }}  */}
+          <button id='x-sign' ><a href='http://localhost:3000'>RESTART</a></button>
         </div>
         
       </div>
@@ -581,7 +579,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
     <> 
     <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
-      <p>Le but du jeu est de trouver mon CV en moins de 8 min. Pour celà il faudra trouver une clé cachée dans le chateau pour ouvrir un coffre qui contient le CV.</p>
+      <p>Le but du jeu est de trouver mon CV en moins de 8 minutes. Pour cela, il faudra trouver une clé cachée dans le château pour ouvrir un coffre qui contient le CV.</p>
       <br></br>
         <br></br>
         <p>Enigme n°1 : Je suis un soldat qui porte le nom d'une bête légendaire</p>
@@ -605,20 +603,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
-          <p>Enigme n°2 : Je suis une arme portée par les officiers</p>
-          <div className="stack">
-            <button id='x-sign' onClick={() => set2(true)}>Continue</button>
-          </div>
-        </div>
-        </>
-        : null }
-
-        {/* {ready ? setTimeout(() =>{console.log(view2); setView2(true)}, 100000) : null} */}
-      {view2 && key == true && ready ?
-        <>
-        <div className="dot" />
-        <div className={`fullscreen bg ${ready2 ? "ready" : "notready"} ${ready2 && "clicked"}`}>
-          <p>Le premier modèle de table connu est attribué au maître ébéniste Henri de Vigne</p>
+          <p>Je suis une arme portée par les officiers dragons russes</p>
           <div className="stack">
             <button id='x-sign' onClick={() => set2(true)}>Continue</button>
           </div>
@@ -657,13 +642,15 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready4 ? "ready" : "notready"} ${ready4 && "clicked"}`}>
-          <p>La clé se montrera utile dans une piéce dédiée à l'amusement</p>
+          {/* <p>La clé se montrera utile dans une piéce dédiée à l'amusement</p> */}
+          <p>Le premier modèle de table connu est attribué au maître ébéniste Henri de Vigne</p>
           <div className="stack">
             <button id='x-sign' onClick={() => set4(true)}>Continue</button>
           </div>
         </div>
         </>
         : null }
+        
 
 {/* { key && ready4 ? setTimeout(() =>{setView5(true)}, 120000) : null} */}
       {view5  && key == true && ready ?
