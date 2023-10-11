@@ -205,9 +205,7 @@ function Model(props, onClick) {
           <sphereGeometry  args={[0.4, 22, 22]} />
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
               <a  id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
-            </Popconfirm>
           </Html>
         </mesh>
       </group>
