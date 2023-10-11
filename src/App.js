@@ -38,7 +38,7 @@ function Dome({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.2, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-            <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a></button>
+            <button onClick={onClick} onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</button>
         </Html>
       </mesh>
     </group>
