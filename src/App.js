@@ -325,9 +325,26 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
   }
 
   function Portals() {
-    return <Dome onClick={function start() {setPosition([20, 0, 20]); setClick(!click)}}/>
+    const [clicked, setClicked] = useState(false)
+    return (
+      <group>
+        <mesh>
+          <sphereGeometry args={[500, 60, 40]} />
+          <meshBasicMaterial   />
+        </mesh>
+        <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
+          <sphereGeometry args={[0.2, 22, 22]} />
+          <meshBasicMaterial color="white" />
+          <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={function start() {setPosition([20, 0, 20]); setClick(!click)}} okText="Yes" cancelText="No">
+              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            </Popconfirm>
+          </Html>
+        </mesh>
+      </group>
+    )
+  
   }
-
   function Portals2() {
     return <Dome2 onClick={function start() {setPosition([0, 0, 0]); setClick(!click); 
       if(clickBilliardMusic == true){
