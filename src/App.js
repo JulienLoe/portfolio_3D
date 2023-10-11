@@ -39,7 +39,7 @@ function Dome({ name, position, texture, onClick }) {
         <meshBasicMaterial color="white" />
         <Html center>
           
-            <a id='link' onConfirm={onClick} href=" " onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+            <a id='link' onClick={onClick} href=" " onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           
         </Html>
       </mesh>
