@@ -17,7 +17,6 @@ import 'bootstrap/dist/css/bootstrap.css';
     <>
     <App />
     <Stats />
-    <Leva collapsed />
       </>
   )
   }
