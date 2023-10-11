@@ -38,9 +38,7 @@ function Dome({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.2, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-          
-            <a id='link' onClick={onClick} href=" " onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          
+            <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a></button>
         </Html>
       </mesh>
     </group>
@@ -59,9 +57,7 @@ function Dome2({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.3, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
-          </Popconfirm>
+          <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a></button>
         </Html>
       </mesh>
     </group>
@@ -81,9 +77,7 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.4, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          </Popconfirm>
+            <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a></button>
         </Html>
       </mesh>
     </group>
