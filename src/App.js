@@ -536,13 +536,54 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){setTresor([36, 0, 46]); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
   
 }, 1000);}}/>
-        {!click && clickStartDrawingRoom != true ?<Sphere position={[2, 0, 0.2]} args={[0.2, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}></Sphere>  : null}
-        {click && clickMusicBilliard != true  ? <Portals2></Portals2> : null}
-        {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
-        {clickMusicBilliard ? <Portals_billard_music></Portals_billard_music> : null}
-        {click == false && clickMusicBilliard == false && clickStartDrawingRoom == false  ? <Portals_start_drawingRoom></Portals_start_drawingRoom> : null}
-        {clickStartDrawingRoom && clickDrawingRoomArmoury != true ? <Portals_drawingRoom_start></Portals_drawingRoom_start> : null}
-        {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Portals_drawingRoom_armoury></Portals_drawingRoom_armoury> : null}
+        {!click && clickStartDrawingRoom != true ?<Sphere position={[2, 0, 0.2]} args={[0.2, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}><Html center>
+            
+              <a href="#" onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}} >Salle de musique</a>
+            
+          </Html></Sphere>  : null}
+        {click && clickMusicBilliard != true  ? <Sphere position={[21, 0, 21]} args={[0.3, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([0, 0, 0]); setClick(!click); 
+      if(clickBilliardMusic == true){
+      setClickBilliardMusic(!clickBilliardMusic)
+    }}} >Salle à manger</a>
+          
+        </Html></Sphere> : null}
+        {!clickMusicBilliard && click != false ? <Sphere position={[22, 0, 14]} args={[0.4, 22, 22]} onClick={()=>{setPosition([36, 0, 46]); 
+    
+    setClickMusicBilliard(true); setClickBilliardMusic(false);}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([36, 0, 46]); 
+    
+    setClickMusicBilliard(true); setClickBilliardMusic(false);}} >Salle de billard</a>
+          
+        </Html></Sphere> : null}
+        {clickMusicBilliard ? <Sphere position={[34.6, 0, 48.7]} args={[0.4, 22, 22]} onClick={()=>{setPosition([22, 0, 16]); 
+  
+  setClickMusicBilliard(false); setClickBilliardMusic(true)}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([22, 0, 16]); 
+  
+  setClickMusicBilliard(false); setClickBilliardMusic(true)}} >Salle de musique</a>
+          
+        </Html></Sphere> : null}
+        {click == false && clickMusicBilliard == false && clickStartDrawingRoom == false  ? <Sphere position={[-4, 0, 0.5]} args={[0.2, 22, 22]} onClick={()=>{setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}} >Petit salon</a>
+          
+        </Html></Sphere> : null}
+        {clickStartDrawingRoom && clickDrawingRoomArmoury != true ? <Sphere position={[59, 0, 64]} args={[0.33, 22, 22]} onClick={()=>{setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
+    console.log(key) ; setKeyLost(false)}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
+    console.log(key) ; setKeyLost(false)}} >Petit salon</a>
+          
+        </Html></Sphere> : null}
+        {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Sphere position={[60.1, 0, 56.4]} args={[0.4, 22, 22]} onClick={()=>{setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}}><Html center>
+            
+            <a href="#" onClick={()=>{setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}} >Petit salon</a>
+          
+        </Html></Sphere> : null}
         {clickDrawingRoomArmoury ? <Portals_armoury_drawingRoom></Portals_armoury_drawingRoom> : null}
         
       </Suspense>
