@@ -22,6 +22,7 @@ import {
 import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
+import {Dome} from './Dome'
 
 
 export default function App() {
@@ -133,26 +134,26 @@ function Model(props, onClick) {
   )
 }
 
-function Dome({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
-        <sphereGeometry args={[0.2, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
+// function Dome({ name, position, texture, onClick }) {
+//   const [clicked, setClicked] = useState(false)
+//   return (
+//     <group>
+//       <mesh>
+//         <sphereGeometry args={[500, 60, 40]} />
+//         <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//       </mesh>
+//       <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
+//         <sphereGeometry args={[0.2, 22, 22]} />
+//         <meshBasicMaterial color="white" />
+//         <Html center>
+//           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//             <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+//           </Popconfirm>
+//         </Html>
+//       </mesh>
+//     </group>
+//   )
+// }
 
 function Dome2({ name, position, texture, onClick }) {
   const [clicked, setClicked] = useState(false)
@@ -495,7 +496,7 @@ let timerSabre
     </Canvas>
     : null }
 
-    {viewCastle ? <Canvas pixelRatio={[1, 2]} frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
+    {viewCastle ? <Canvas id="c"  width="128px" height="128" pixelRatio={[1, 2]} frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
     
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={3} />
