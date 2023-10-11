@@ -22,7 +22,7 @@ import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
 import Popconfirm from "antd/lib/popconfirm";
-import "antd/dist/antd.css";
+import "antd/dist/reset.css";
 
 
 
