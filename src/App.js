@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Html, Preload, OrbitControls, useAnimations, useGLTF, Stage, BakeShadows } from '@react-three/drei'
-import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
 import {Billiards_room} from "./Billiards_room"
