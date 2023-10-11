@@ -337,7 +337,7 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
           <meshBasicMaterial color="white" />
           <Html center>
             <Popconfirm title="Are you sure you want to leave?" onConfirm={function start() {setPosition([20, 0, 20]); setClick(!click)}} okText="Yes" cancelText="No">
-              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+              <button onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</button>
             </Popconfirm>
           </Html>
         </mesh>
