@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Html, Preload, OrbitControls, useAnimations, useGLTF, Stage, BakeShadows } from '@react-three/drei'
+import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
 import {Billiards_room} from "./Billiards_room"
@@ -21,8 +22,6 @@ import {
 import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
-import {Popconfirm} from 'antd';
-import "antd/dist/reset.css";
 
 
 
@@ -38,7 +37,9 @@ function Dome({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.2, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-            <button onClick={onClick} onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</button>
+          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+          </Popconfirm>
         </Html>
       </mesh>
     </group>
@@ -57,7 +58,9 @@ function Dome2({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.3, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-          <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a></button>
+          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+          </Popconfirm>
         </Html>
       </mesh>
     </group>
@@ -77,7 +80,9 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.4, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-            <button onClick={onClick}><a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a></button>
+          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+          </Popconfirm>
         </Html>
       </mesh>
     </group>
@@ -205,7 +210,9 @@ function Model(props, onClick) {
           <sphereGeometry  args={[0.4, 22, 22]} />
           <meshBasicMaterial   color={clicked ? "white" : "white"} />
           <Html center>
+            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
               <a  id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
+            </Popconfirm>
           </Html>
         </mesh>
       </group>
@@ -489,7 +496,7 @@ let timerSabre
     </Canvas>
     : null }
 
-    {viewCastle ? <Canvas frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
+    {viewCastle ? <Canvas pixelRatio={[1, 2]} frameloop="always" rotation={[0,0,0]} camera={threeCamera}>
     
       <Physics gravity={[0, -30, 0]}>
       <ambientLight intensity={3} />
