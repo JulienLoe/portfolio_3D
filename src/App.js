@@ -37,8 +37,8 @@ function Dome({ name, position, texture, onClick }) {
         <sphereGeometry args={[0.2, 22, 22]} />
         <meshBasicMaterial color="white" />
         <Html center>
-          <Popconfirm visible='visible' title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+            <a id='link' href=" " onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
           </Popconfirm>
         </Html>
       </mesh>
