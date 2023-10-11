@@ -335,11 +335,7 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
         <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
           <sphereGeometry args={[0.2, 22, 22]} />
           <meshBasicMaterial color="white" />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={function start() {setPosition([20, 0, 20]); setClick(!click)}} okText="Yes" cancelText="No">
-              <button onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</button>
-            </Popconfirm>
-          </Html>
+          
         </mesh>
       </group>
     )
@@ -540,7 +536,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){setTresor([36, 0, 46]); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
   
 }, 1000);}}/>
-        {!click && clickStartDrawingRoom != true ? <Portals></Portals> : null}
+        {!click && clickStartDrawingRoom != true ? <Portals onClick={function start() {setPosition([20, 0, 20]); setClick(!click)}}></Portals> : null}
         {click && clickMusicBilliard != true  ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
         {clickMusicBilliard ? <Portals_billard_music></Portals_billard_music> : null}
