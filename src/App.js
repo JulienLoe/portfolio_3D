@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Html, Preload, OrbitControls, useAnimations, useGLTF, Stage, BakeShadows } from '@react-three/drei'
+import { Html, Preload, OrbitControls, useAnimations, useGLTF, Stage, BakeShadows, Sphere } from '@react-three/drei'
 import { Popconfirm } from 'antd'
 import {Maison} from "./Maison"
 import {Maison2} from "./Maison2"
@@ -536,7 +536,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         <Model position={[32, -1.9, 40.5]}  onClick={()=>{ console.log(openBox); setOpenBox(true);if(key == true){setTresor([36, 0, 46]); setTresorBoolean(true)}; setTimeout(() => {setOpenBox(false)
   
 }, 1000);}}/>
-        {!click && clickStartDrawingRoom != true ? <Portals onClick={function start() {setPosition([20, 0, 20]); setClick(!click)}}></Portals> : null}
+        {!click && clickStartDrawingRoom != true ?<Sphere position={[2, 0, 0.2]} args={[0.2, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}></Sphere>  : null}
         {click && clickMusicBilliard != true  ? <Portals2></Portals2> : null}
         {!clickMusicBilliard && click != false ? <Portals_music_billard></Portals_music_billard> : null}
         {clickMusicBilliard ? <Portals_billard_music></Portals_billard_music> : null}
