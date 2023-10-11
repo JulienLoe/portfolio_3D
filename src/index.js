@@ -16,7 +16,6 @@ import 'bootstrap/dist/css/bootstrap.css';
   return(
     <>
     <App />
-    <Stats />
       </>
   )
   }
