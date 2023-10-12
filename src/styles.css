@@ -319,6 +319,7 @@ button{
   animation: flicker steps(100) var(--interval) 1s infinite;
   font-size: calc(1em + 3vmax);
   line-height: 1.1;
+  text-decoration: none;
 }
 
 #x-sign2 {
@@ -454,6 +455,7 @@ button{
   opacity: 0;
   transition: opacity .3s ease-in-out;
   border-radius: 10px;
+  text-decoration: none;
 }
 
 #btnReturn:active {
@@ -547,3 +549,4 @@ button{
   height: 100px;
   width: 100px;
 }
+

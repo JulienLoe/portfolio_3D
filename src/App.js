@@ -155,236 +155,231 @@ function Model(props, onClick) {
 //   )
 // }
 
-function Dome2({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[21, 0, 21]}>
-        <sphereGeometry args={[0.3, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
+// function Dome2({ name, position, texture, onClick }) {
+//   const [clicked, setClicked] = useState(false)
+//   return (
+//     <group>
+//       <mesh>
+//         <sphereGeometry args={[500, 60, 40]} />
+//         <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//       </mesh>
+//       <mesh scale={clicked ? 1.1 : 1} position={[21, 0, 21]}>
+//         <sphereGeometry args={[0.3, 22, 22]} />
+//         <meshBasicMaterial color="white" />
+//         <Html center>
+//           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//             <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+//           </Popconfirm>
+//         </Html>
+//       </mesh>
+//     </group>
+//   )
+// }
 
 
-function Dome_billiard_music({ name, position, texture, onClick }) {
-  const [clicked, setClicked] = useState(false)
-  return (
-    <group>
-      <mesh>
-        <sphereGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
-      </mesh>
-      <mesh scale={clicked ? 1.1 : 1} position={[34.6, 0, 48.7]}>
-        <sphereGeometry args={[0.4, 22, 22]} />
-        <meshBasicMaterial color="white" />
-        <Html center>
-          <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-            <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
-          </Popconfirm>
-        </Html>
-      </mesh>
-    </group>
-  )
-}
+// function Dome_billiard_music({ name, position, texture, onClick }) {
+//   const [clicked, setClicked] = useState(false)
+//   return (
+//     <group>
+//       <mesh>
+//         <sphereGeometry args={[500, 60, 40]} />
+//         <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//       </mesh>
+//       <mesh scale={clicked ? 1.1 : 1} position={[34.6, 0, 48.7]}>
+//         <sphereGeometry args={[0.4, 22, 22]} />
+//         <meshBasicMaterial color="white" />
+//         <Html center>
+//           <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//             <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de musique</a>
+//           </Popconfirm>
+//         </Html>
+//       </mesh>
+//     </group>
+//   )
+// }
 
-  function Dome_music_billiard({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[22, 0, 14]}>
-          <sphereGeometry  args={[0.4, 22, 22]} />
-          <meshBasicMaterial   color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a  id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_music_billiard({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[22, 0, 14]}>
+//           <sphereGeometry  args={[0.4, 22, 22]} />
+//           <meshBasicMaterial   color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a  id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle de Billard</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Dome_start_drawingRoom({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[-4, 0, 0.5]}>
-          <sphereGeometry  args={[0.2, 22, 22]} />
-          <meshBasicMaterial   color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_start_drawingRoom({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[-4, 0, 0.5]}>
+//           <sphereGeometry  args={[0.2, 22, 22]} />
+//           <meshBasicMaterial   color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Dome_drawingRoom_start({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[59, 0, 64]}>
-          <sphereGeometry  args={[0.33, 22, 22]} />
-          <meshBasicMaterial   color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_drawingRoom_start({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[59, 0, 64]}>
+//           <sphereGeometry  args={[0.33, 22, 22]} />
+//           <meshBasicMaterial   color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Salle à manger</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Dome_drawingRoom_armoury({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[60.1, 0, 56.4]}>
-          <sphereGeometry  args={[0.4, 22, 22]} />
-          <meshBasicMaterial   color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Armurie</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_drawingRoom_armoury({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[60.1, 0, 56.4]}>
+//           <sphereGeometry  args={[0.4, 22, 22]} />
+//           <meshBasicMaterial   color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Armurie</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Dome_armoury_drawingRoom({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[80.9, 0, 80.8]}>
-          <sphereGeometry  args={[0.2, 22, 22]} />
-          <meshBasicMaterial   color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_armoury_drawingRoom({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[80.9, 0, 80.8]}>
+//           <sphereGeometry  args={[0.2, 22, 22]} />
+//           <meshBasicMaterial   color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a id='link' href="#" onPointerOver={() => setClicked(true)} onPointerOut={() => setClicked(false)}>Petit Salon</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Dome_Sabre({ name, position, texture, onClick }) {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh >
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
-        <mesh  scale={clicked ? 1.1 : 1} position={[0, 0, 1]}>
-          <sphereGeometry  args={[0, 22, 22]} />
-          <meshBasicMaterial  color={clicked ? "white" : "white"} />
-          <Html center>
-            <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
-              <a href="#" >Sabre</a>
-            </Popconfirm>
-          </Html>
-        </mesh>
-      </group>
-    )
-  }
+//   function Dome_Sabre({ name, position, texture, onClick }) {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh >
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial map={texture} side={THREE.BackSide} />
+//         </mesh>
+//         <mesh  scale={clicked ? 1.1 : 1} position={[0, 0, 1]}>
+//           <sphereGeometry  args={[0, 22, 22]} />
+//           <meshBasicMaterial  color={clicked ? "white" : "white"} />
+//           <Html center>
+//             <Popconfirm title="Are you sure you want to leave?" onConfirm={onClick} okText="Yes" cancelText="No">
+//               <a href="#" >Sabre</a>
+//             </Popconfirm>
+//           </Html>
+//         </mesh>
+//       </group>
+//     )
+//   }
 
-  function Portals() {
-    const [clicked, setClicked] = useState(false)
-    return (
-      <group>
-        <mesh>
-          <sphereGeometry args={[500, 60, 40]} />
-          <meshBasicMaterial   />
-        </mesh>
-        <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
-          <sphereGeometry args={[0.2, 22, 22]} />
-          <meshBasicMaterial color="white" />
+//   function Portals() {
+//     const [clicked, setClicked] = useState(false)
+//     return (
+//       <group>
+//         <mesh>
+//           <sphereGeometry args={[500, 60, 40]} />
+//           <meshBasicMaterial   />
+//         </mesh>
+//         <mesh scale={clicked ? 1.1 : 1} position={[2, 0, 0.2]}>
+//           <sphereGeometry args={[0.2, 22, 22]} />
+//           <meshBasicMaterial color="white" />
           
-        </mesh>
-      </group>
-    )
+//         </mesh>
+//       </group>
+//     )
   
-  }
-  function Portals2() {
-    return <Dome2 onClick={function start() {setPosition([0, 0, 0]); setClick(!click); 
-      if(clickBilliardMusic == true){
-      setClickBilliardMusic(!clickBilliardMusic)
-    }}}/>
-  }
+//   }
+//   function Portals2() {
+//     return <Dome2 onClick={function start() {setPosition([0, 0, 0]); setClick(!click); 
+//       if(clickBilliardMusic == true){
+//       setClickBilliardMusic(!clickBilliardMusic)
+//     }}}/>
+//   }
 
-  function Portals_music_billard() {
-    return <Dome_music_billiard  onClick={function start() {setPosition([36, 0, 46]); 
+//   function Portals_music_billard() {
+//     return <Dome_music_billiard  onClick={function start() {setPosition([36, 0, 46]); 
     
-      setClickMusicBilliard(true); setClickBilliardMusic(false);
-      }}/>
-  }
+//       setClickMusicBilliard(true); setClickBilliardMusic(false);
+//       }}/>
+//   }
 
-  function Portals_billard_music() {
-    return <Dome_billiard_music onClick={function start() {setPosition([22, 0, 16]); 
+//   function Portals_billard_music() {
+//     return <Dome_billiard_music onClick={function start() {setPosition([22, 0, 16]); 
   
-      setClickMusicBilliard(false); setClickBilliardMusic(true)}
+//       setClickMusicBilliard(false); setClickBilliardMusic(true)}
     
-    }/>
-  }
+//     }/>
+//   }
 
-  function Portals_start_drawingRoom() {
-    return <Dome_start_drawingRoom onClick={function start() {setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}}/>
-  }
+//   function Portals_start_drawingRoom() {
+//     return <Dome_start_drawingRoom onClick={function start() {setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}}/>
+//   }
 
-  function Portals_drawingRoom_start() {
-    return <Dome_drawingRoom_start onClick={function start() {setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
-    console.log(key) ; setKeyLost(false)
-  }}/>
-  }
+//   function Portals_drawingRoom_start() {
+//     return <Dome_drawingRoom_start onClick={function start() {setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
+//     console.log(key) ; setKeyLost(false)
+//   }}/>
+//   }
 
-  function Portals_drawingRoom_armoury() {
-    return <Dome_drawingRoom_armoury onClick={function start() {setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}}/>
-  }
+//   function Portals_drawingRoom_armoury() {
+//     return <Dome_drawingRoom_armoury onClick={function start() {setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}}/>
+//   }
 
-  function Portals_armoury_drawingRoom() {
-    return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false) }}/>
-  }
-  let timerClean
-  let timerView2
-  let timerView3
-  let timerView4
-  let timerView5
+//   function Portals_armoury_drawingRoom() {
+//     return <Dome_armoury_drawingRoom onClick={function start() {setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false) }}/>
+//   }
   
   useEffect(()=>{
     if(viewCastle == true){
@@ -424,28 +419,28 @@ function Dome_billiard_music({ name, position, texture, onClick }) {
       if(ready == true){
         
       
-      timerClean = setTimeout(() =>{setGameOver(true)}, 484000);
+      setTimeout(() =>{setGameOver(true)}, 484000);
 
       
       if(ready ){
        
           
         
-      timerView2 = setTimeout(() =>{setView2(true)}, 100000)
+      setTimeout(() =>{setView2(true)}, 100000)
       
       }
       if(ready2 && !key){
         
-      timerView3 = setTimeout(() =>{setView3(true)}, 180000)
+      setTimeout(() =>{setView3(true)}, 180000)
       }
       if(key &&ready2){
       
        
-      timerView4 = setTimeout(() =>{setView4(true)}, 60000)
+      setTimeout(() =>{setView4(true)}, 60000)
       }
       if(key && ready4){
         
-      timerView5 = setTimeout(() =>{setView5(true)}, 120000)
+      setTimeout(() =>{setView5(true)}, 120000)
       }
       
       }
@@ -482,11 +477,11 @@ signs.forEach(el => {
   })
 })
 
-let timerSabre
+
   return (
     <>
     {ready ? <Timer isStarted></Timer> : null }
-    {ready ? <button id='btnReturn' ><a href='http://localhost:3000'>RESTART</a></button> : null }
+    {ready ? <button id='btnReturn' ><a href='https://castlequest.onrender.com'>RESTART</a></button> : null }
     {cv ? <div id='cv'>
     <PDFReader></PDFReader>
     <button id='btnReturn' onClick={() =>{setCv(false)}}>Return game</button>
@@ -523,7 +518,7 @@ let timerSabre
         <SmallDrawingRoom scale={1} position={[60, -2, 60]}></SmallDrawingRoom>
         <Armoury scale={1} position={[80, -0.7, 80]}></Armoury>
         <DragoonOfficerSabre onClick={()=> { if(singleTime == false){
-        setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); timerSabre = setTimeout(() => {
+        setClickSabre([79.6, 0, 80]); setSingleTime(true); setKey(true); setTimeout(() => {
   setClickSabre([79.6, -1, 80]);
 }, 5000);
         }}} 
@@ -538,12 +533,15 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
 }, 1000);}}/>
         {!click && clickStartDrawingRoom != true ?<Sphere position={[2, 0, 0.2]} args={[0.2, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}><Html center>
             
-              <a href="#" onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}} >Salle de musique</a>
+              <a id='link' href="#" onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}} >Salle de musique</a>
             
           </Html></Sphere>  : null}
-        {click && clickMusicBilliard != true  ? <Sphere position={[21, 0, 21]} args={[0.3, 22, 22]} onClick={()=>{setPosition([20, 0, 20]); setClick(!click)}}><Html center>
+        {click && clickMusicBilliard != true  ? <Sphere position={[21, 0, 21]} args={[0.3, 22, 22]} onClick={()=>{setPosition([0, 0, 0]); setClick(!click); 
+      if(clickBilliardMusic == true){
+      setClickBilliardMusic(!clickBilliardMusic)
+    }}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([0, 0, 0]); setClick(!click); 
+            <a id='link' href="#" onClick={()=>{setPosition([0, 0, 0]); setClick(!click); 
       if(clickBilliardMusic == true){
       setClickBilliardMusic(!clickBilliardMusic)
     }}} >Salle à manger</a>
@@ -553,7 +551,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
     
     setClickMusicBilliard(true); setClickBilliardMusic(false);}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([36, 0, 46]); 
+            <a id='link' href="#" onClick={()=>{setPosition([36, 0, 46]); 
     
     setClickMusicBilliard(true); setClickBilliardMusic(false);}} >Salle de billard</a>
           
@@ -562,29 +560,33 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
   
   setClickMusicBilliard(false); setClickBilliardMusic(true)}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([22, 0, 16]); 
+            <a id='link' href="#" onClick={()=>{setPosition([22, 0, 16]); 
   
   setClickMusicBilliard(false); setClickBilliardMusic(true)}} >Salle de musique</a>
           
         </Html></Sphere> : null}
         {click == false && clickMusicBilliard == false && clickStartDrawingRoom == false  ? <Sphere position={[-4, 0, 0.5]} args={[0.2, 22, 22]} onClick={()=>{setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}} >Petit salon</a>
+            <a id='link' href="#" onClick={()=>{setPosition([59, 0, 63]); setClickStartDrawingRoom(true)}} >Petit salon</a>
           
         </Html></Sphere> : null}
         {clickStartDrawingRoom && clickDrawingRoomArmoury != true ? <Sphere position={[59, 0, 64]} args={[0.33, 22, 22]} onClick={()=>{setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
     console.log(key) ; setKeyLost(false)}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
+            <a id='link' href="#" onClick={()=>{setPosition([0, 0, 0]); setClickStartDrawingRoom(false); setClickArmouryDrawingRoom(false); 
     console.log(key) ; setKeyLost(false)}} >Petit salon</a>
           
         </Html></Sphere> : null}
         {clickDrawingRoomArmoury == false && clickStartDrawingRoom == true ? <Sphere position={[60.1, 0, 56.4]} args={[0.4, 22, 22]} onClick={()=>{setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}}><Html center>
             
-            <a href="#" onClick={()=>{setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}} >Petit salon</a>
+            <a id='link' href="#" onClick={()=>{setPosition([79.6, 0, 80]); setClickDrawingRoomArmoury(true); setClickArmouryDrawingRoom(false)}} >Armurerie</a>
           
         </Html></Sphere> : null}
-        {clickDrawingRoomArmoury ? <Portals_armoury_drawingRoom></Portals_armoury_drawingRoom> : null}
+        {clickDrawingRoomArmoury ? <Sphere position={[80.9, 0, 80.8]} args={[0.2, 22, 22]} onClick={()=>{setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false)}}><Html center>
+            
+            <a id='link' href="#" onClick={()=>{setPosition([60, 0, 58]); setClickArmouryDrawingRoom(true); setClickDrawingRoomArmoury(false)}} >Petit salon</a>
+          
+        </Html></Sphere> : null}
         
       </Suspense>
       </Physics>
@@ -623,7 +625,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         {/* onClick={() =>{setClick(false); setClickMusicBilliard(false); setClickBilliardMusic(false); setClickStartDrawingRoom(false); setClickDrawingRoomArmoury(false);
            setClickArmouryDrawingRoom(false); setSingleTime(false); setKey(false); setKeyLost(true); setTresor([100,0,100]); setTresorBoolean(false); setOpenBox(false); set2(false);
            set3(false); set4(false); set5(false); setView2(false); setView3(false); setView4(false); setView5(false); setTitleStart(true); setGameOver(false); setPosition([0,0,0]); setRestart(true); set(false); setKeyLost(true) }}  */}
-          <button id='x-sign' ><a href='http://localhost:3000'>RESTART</a></button>
+          <button ><a id='x-sign' href='https://castlequest.onrender.com'>RESTART</a></button>
         </div>
         
       </div>
