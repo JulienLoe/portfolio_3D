@@ -550,3 +550,10 @@ button{
   width: 100px;
 }
 
+#audio{
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  z-index: 10000;
+}
+

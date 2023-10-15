@@ -23,6 +23,7 @@ import { Castle } from './Castle'
 import "react-circular-progressbar/dist/styles.css";
 import Timer from './Timer'
 import {Dome} from './Dome'
+import audio from './assets/Cinematic_Sad_Melancholic_Sentimental_Grand_Piano_Production_Theme_Soundtrack_014_-_PremiumMusic.mp3'
 
 
 export default function App() {
@@ -70,31 +71,31 @@ export default function App() {
   threeCamera.position.set(0, 0, -0.1);
   // threeCamera.position.set(602, 0, 600);
 
-  useEffect(() =>{
-  const listener = new THREE.AudioListener();
-threeCamera.add( listener );
+//   useEffect(() =>{
+//   const listener = new THREE.AudioListener();
+// threeCamera.add( listener );
 
-  // create a global audio source
-const sound = new THREE.Audio( listener );
+//   // create a global audio source
+// const sound = new THREE.Audio( listener );
 
-// load a sound and set it as the Audio object's buffer
-const audioLoader = new THREE.AudioLoader();
+// // load a sound and set it as the Audio object's buffer
+// const audioLoader = new THREE.AudioLoader();
 
-  console.log(toogleMusic)
-audioLoader.load( song, function( buffer ) {
-	sound.setBuffer( buffer );
-	sound.setLoop( true );
-	sound.setVolume( 0.5 );
-	sound.play();
+//   console.log(toogleMusic)
+// audioLoader.load( song, function( buffer ) {
+// 	sound.setBuffer( buffer );
+// 	sound.setLoop( true );
+// 	sound.setVolume( 0.5 );
+// 	sound.play();
 
-console.log(toogleMusic)
+// console.log(toogleMusic)
 
-  if(toogleMusic){
-    console.log(toogleMusic)
-    sound.stop();
-  }
-});
-}, [toogleMusic])
+//   if(toogleMusic){
+//     console.log(toogleMusic)
+//     sound.stop();
+//   }
+// });
+// }, [toogleMusic])
 
 const [isStarted, setIsStarted] = useState(false);
 
@@ -480,6 +481,10 @@ signs.forEach(el => {
 
   return (
     <>
+    {ready ?
+    <audio id='audio' src={audio} autoplay controls  loop>
+
+</audio> : null }
     {ready ? <Timer isStarted></Timer> : null }
     {ready ? <button id='btnReturn' ><a href='https://castlequest.onrender.com'>RESTART</a></button> : null }
     {cv ? <div id='cv'>
@@ -510,6 +515,7 @@ signs.forEach(el => {
       <ambientLight intensity={3} />
       <OrbitControls makeDefault  target={position} enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2}  rotateSpeed={-0.5}/>
       <Suspense fallback={<Loader></Loader>}>
+        
         
         <Preload all />
         <Maison scale={1}  position={[0, 0, -5]}></Maison>
@@ -661,7 +667,7 @@ rotation={[0, Math.PI / -1.3, -4.5]} position={[79.5, -0.02, 79.05]} scale={0.00
         : null }
 
 {/* {ready && ready2 ? setTimeout(() =>{setView3(true)}, 180000) : null} */}
-{view3  && key == false && ready ?
+{view3  && key == true && ready ?
         <>
         <div className="dot" />
         <div className={`fullscreen bg ${ready3 ? "ready" : "notready"} ${ready3 && "clicked"}`}>
